@@ -28,8 +28,8 @@
 		
 		<!-- 配置视图解释器 jsp -->
 		<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-			<property name="prefix" value="/WEB-INF/jsp/"/>
-			<property name="suffix" value=".jsp"/>
+			<property name="prefix" value="/WEB-INF/"/>
+			<property name="suffix" value=".html"/>
 		</bean>
 		
 </beans>
