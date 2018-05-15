@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jike.dao.RecordInfoDao;
+import com.jike.dao.RecordInfoMapper;
 import com.jike.entity.RecordInfo;
 import com.jike.service.RecordInfoService;
 
 @Service("recordInfoService")
 public class RecordInfoServiceImpl implements RecordInfoService {
 	@Autowired
-	public RecordInfoDao recordInfoDao;
+	public RecordInfoMapper recordInfoDao;
 
 	@Override
 	public RecordInfo saveRecord(RecordInfo recordInfo) {
@@ -44,11 +44,11 @@ public class RecordInfoServiceImpl implements RecordInfoService {
 		return null;
 	}
 
-	public RecordInfoDao getRecordInfoDao() {
+	public RecordInfoMapper getRecordInfoDao() {
 		return recordInfoDao;
 	}
 
-	public void setRecordInfoDao(RecordInfoDao recordInfoDao) {
+	public void setRecordInfoDao(RecordInfoMapper recordInfoDao) {
 		this.recordInfoDao = recordInfoDao;
 	}
 

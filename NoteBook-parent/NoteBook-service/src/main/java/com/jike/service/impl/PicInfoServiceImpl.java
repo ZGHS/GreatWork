@@ -5,14 +5,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.jike.dao.PicInfoDao;
+import com.jike.dao.PicInfoMapper;
 import com.jike.entity.PicInfo;
 import com.jike.service.PicInfoService;
 
 @Service("picInfoService")
 public class PicInfoServiceImpl implements PicInfoService {
 	@Autowired
-	public PicInfoDao picInfoDao;
+	public PicInfoMapper picInfoDao;
 
 	@Override
 	public PicInfo savePic(PicInfo picInfo) {
@@ -38,11 +38,11 @@ public class PicInfoServiceImpl implements PicInfoService {
 		return null;
 	}
 
-	public PicInfoDao getPicInfoDao() {
+	public PicInfoMapper getPicInfoDao() {
 		return picInfoDao;
 	}
 
-	public void setPicInfoDao(PicInfoDao picInfoDao) {
+	public void setPicInfoDao(PicInfoMapper picInfoDao) {
 		this.picInfoDao = picInfoDao;
 	}
 

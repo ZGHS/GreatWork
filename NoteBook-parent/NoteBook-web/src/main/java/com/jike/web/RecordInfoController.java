@@ -50,7 +50,7 @@ public class RecordInfoController {
 	public String getByUidAndMark(RecordInfo record) {
 		System.out.println("hello world");
 		System.out.println(record);
-		List<RecordInfo> records = recordInfoService.getByUidAndLabel(record.getUid(), record.getLabel());
+		List<RecordInfo> records = recordInfoService.getByUidAndLabel(record.getuId(), record.getrLabel());
 		String jsonString = JSON.toJSONString(records);
 		return jsonString;
 	}

@@ -1,62 +1,43 @@
 package com.jike.entity;
 
-import java.util.List;
-
 public class UserInfo {
-	private Integer id;
-	private String name;
-	private String account;
-	private String password;
-	private List<RecordInfo> recordInfos;
+    private Integer uId;
 
-	public UserInfo() {
-		super();
-	}
+    private String uName;
 
-	public Integer getId() {
-		return id;
-	}
+    private String uAccount;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    private String uPassword;
 
-	public String getName() {
-		return name;
-	}
+    public Integer getuId() {
+        return uId;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setuId(Integer uId) {
+        this.uId = uId;
+    }
 
-	public String getAccount() {
-		return account;
-	}
+    public String getuName() {
+        return uName;
+    }
 
-	public void setAccount(String account) {
-		this.account = account;
-	}
+    public void setuName(String uName) {
+        this.uName = uName;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public String getuAccount() {
+        return uAccount;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setuAccount(String uAccount) {
+        this.uAccount = uAccount;
+    }
 
-	public List<RecordInfo> getRecordInfos() {
-		return recordInfos;
-	}
+    public String getuPassword() {
+        return uPassword;
+    }
 
-	public void setRecordInfos(List<RecordInfo> recordInfos) {
-		this.recordInfos = recordInfos;
-	}
-
-	@Override
-	public String toString() {
-		return "UserInfo [id=" + id + ", name=" + name + ", account=" + account + ", password=" + password
-				+ ", recordInfos=" + recordInfos + "]";
-	}
-
+    public void setuPassword(String uPassword) {
+        this.uPassword = uPassword;
+    }
 }
