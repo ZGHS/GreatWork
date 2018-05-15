@@ -40,9 +40,9 @@ public class RecordInfoController {
 	public String updateRecord(RecordInfo record) {
 		System.out.println("hello world");
 		System.out.println(record);
-		RecordInfo updateRecord = recordInfoService.updateRecord(record);
-		String jsonString = JSON.toJSONString(updateRecord);
-		return jsonString;
+		String updateRecord = recordInfoService.updateRecord(record);
+//		String jsonString = JSON.toJSONString(updateRecord);
+		return updateRecord;
 	}
 
 	@RequestMapping(value = "getByUidAndMark", produces = "text/html;charset=UTF-8")

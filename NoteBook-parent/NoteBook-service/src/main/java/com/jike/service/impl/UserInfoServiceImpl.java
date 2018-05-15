@@ -1,10 +1,8 @@
 package com.jike.service.impl;
 
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.alibaba.druid.sql.ast.statement.SQLIfStatement.Else;
+import com.jike.dao.RecordInfoMapper;
 import com.jike.dao.UserInfoMapper;
 import com.jike.entity.UserInfo;
 import com.jike.service.UserInfoService;
@@ -13,15 +11,18 @@ import com.jike.service.UserInfoService;
 public class UserInfoServiceImpl implements UserInfoService {
 	@Autowired
 	public UserInfoMapper userInfoDao;
+	@Autowired
+	public RecordInfoMapper recordInfoDao;
 
 	@Override
 	public UserInfo login(UserInfo userInfo) {
-		try{
-			if (userInfo.getuPassword().equals(userInfoDao.selectByAccount(userInfo.getuAccount()).getuPassword())) {
-				return userInfo;
-			}
-		} catch (Exception e) {
+		userInfo = userInfoDao.selectByAccount(userInfo.getuAccount());
+		if (userInfo == null)
 			return null;
+		else if (userInfo.getuPassword().equals(userInfo.getuPassword())) {
+			userInfo.setuRecordInfos(recordInfoDao.selectByUser(userInfo.getuId()));
+
+			return userInfo;
 		}
 		return null;
 	}
@@ -37,8 +38,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 	@Override
 	public UserInfo modifyProfile(UserInfo userInfo) {
-		// TODO Auto-generated method stub
-		return null;
+		userInfoDao.updateByPrimaryKeySelective(userInfo);
+		return userInfo;
 	}
 
 	public UserInfoMapper getUserInfoDao() {

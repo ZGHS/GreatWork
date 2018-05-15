@@ -1,5 +1,6 @@
 package com.jike.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,17 @@ public class RecordInfoServiceImpl implements RecordInfoService {
 	}
 
 	@Override
-	public RecordInfo updateRecord(RecordInfo recordInfo) {
-		// TODO Auto-generated method stub
-		return null;
+	public String updateRecord(RecordInfo recordInfo) {
+		recordInfo.setrDate(new Date());
+		if(recordInfo.getrId()==null)
+		{
+			recordInfoDao.insertSelective(recordInfo);
+			return "success insert";
+		}
+		else {
+			recordInfoDao.updateByPrimaryKeySelective(recordInfo);
+			return "success save";
+		}
 	}
 
 	@Override

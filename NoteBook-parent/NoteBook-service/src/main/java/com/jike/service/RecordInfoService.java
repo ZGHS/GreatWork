@@ -9,7 +9,7 @@ public interface RecordInfoService {
 
 	RecordInfo deleteRecord(Integer id);
 
-	RecordInfo updateRecord(RecordInfo recordInfo);
+	String updateRecord(RecordInfo recordInfo);
 
 	List<RecordInfo> getByUid(Integer uid);
 

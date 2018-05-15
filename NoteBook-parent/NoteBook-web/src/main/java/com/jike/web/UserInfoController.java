@@ -36,7 +36,6 @@ public class UserInfoController {
 	}
 
 	@RequestMapping(value = "login", produces = "text/html;charset=UTF-8")
-	@ResponseBody
 	public String login(UserInfo userInfo, HttpServletRequest request) {
 		UserInfo login = userInfoService.login(userInfo);
 		// String jsonString = JSON.toJSONString(login);
@@ -59,10 +58,21 @@ public class UserInfoController {
 		return jsonString;
 	}
 
-	@RequestMapping(value = "tlogin", produces = "text/html;charset=UTF-8")
-	public String tlogin() {
-		return "index";
+	@RequestMapping(value = "logout", produces = "text/html;charset=UTF-8")
+	public String logOut(HttpServletRequest request)
+	{
+		if(request.getSession(false)!=null //如果没有对应的session，返回null，不会创建session
+			&& request.getSession().getAttribute("accoun")!=null){
+			request.getSession().invalidate();
+		}		
+		return "login";
 	}
+
+	// for text
+	// @RequestMapping(value = "tlogin", produces = "text/html;charset=UTF-8")
+	// public String tlogin() {
+	// return "index";
+	// }
 
 	public UserInfoService getUserInfoService() {
 		return userInfoService;
