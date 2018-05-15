@@ -1,5 +1,7 @@
 package com.jike.dao;
 
+import java.util.List;
+
 import com.jike.entity.RecordInfo;
 
 public interface RecordInfoMapper {
@@ -7,9 +9,11 @@ public interface RecordInfoMapper {
 
     int insert(RecordInfo record);
 
-    int insertSelective(RecordInfo record);
+    RecordInfo insertSelective(RecordInfo record);
 
     RecordInfo selectByPrimaryKey(Integer rId);
+    
+    List<RecordInfo> selectByUser(Integer uId);
 
     int updateByPrimaryKeySelective(RecordInfo record);
 

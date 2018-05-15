@@ -1,5 +1,7 @@
 package com.jike.entity;
 
+import java.util.List;
+
 public class UserInfo {
     private Integer uId;
 
@@ -8,8 +10,18 @@ public class UserInfo {
     private String uAccount;
 
     private String uPassword;
+    
+    private List<RecordInfo> uRecordInfos;
 
-    public Integer getuId() {
+    public List<RecordInfo> getuRecordInfos() {
+		return uRecordInfos;
+	}
+
+	public void setuRecordInfos(List<RecordInfo> uRecordInfos) {
+		this.uRecordInfos = uRecordInfos;
+	}
+
+	public Integer getuId() {
         return uId;
     }
 

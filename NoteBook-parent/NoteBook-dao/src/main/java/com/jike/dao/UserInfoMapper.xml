@@ -69,9 +69,6 @@
       <if test="uName != null" >
         u_name = #{uName,jdbcType=VARCHAR},
       </if>
-      <if test="uAccount != null" >
-        u_account = #{uAccount,jdbcType=CHAR},
-      </if>
       <if test="uPassword != null" >
         u_password = #{uPassword,jdbcType=VARCHAR},
       </if>
