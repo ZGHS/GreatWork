@@ -26,6 +26,9 @@ public class UserInfo {
 		this.uPassword = uPassword;
 	}
 
+	public UserInfo() {
+	}
+
 	public List<RecordInfo> getuRecordInfos() {
 		return uRecordInfos;
 	}
