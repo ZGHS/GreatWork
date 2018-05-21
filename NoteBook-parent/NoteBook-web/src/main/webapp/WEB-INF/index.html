@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>随手记</title>
+		<script type="text/javascript" src="http://127.0.0.1:8080/MyTest/js/jquery-3.3.1.js" ></script>
+		<!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+		<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
+		<script type="text/javascript" src="http://127.0.0.1:8080/MyTest/js/summernote-zh-CN.js"></script>
+		
+		
+		<script type="text/javascript">
+			
+			//{"uAccount":"13838384380","uId":4,"uName":"linainai38","uPassword":"123456","uRecordInfos":[{"rContent":"asdfsf","rDelete":1,"rId":5,"rLabel":2,"uId":4},{"rContent":"asdfsf","rDelete":1,"rId":6,"rLabel":2,"uId":4},{"rContent":"asdfsf","rDelete":1,"rId":7,"rLabel":2,"uId":4},{"rContent":"asdfsf","rDelete":1,"rId":8,"rLabel":2,"uId":4}]}
+
+			var currentRid;
+			
+			 var   myData={"uAccount":"13838384380","uId":4,"uName":"linainai38","uPassword":"123456","uRecordInfos":[{"rContent":"今天是否，好条件看到房价是否考虑","rDelete":1,"rId":5,"rLabel":1,"uId":4},{"rContent":"范德萨发地方萨芬撒发生的发生过任何他仍然提供的","rDelete":1,"rId":6,"rLabel":0,"uId":4},{"rContent":"防守打法是范德萨发生发斯蒂芬","rDelete":1,"rId":7,"rLabel":2,"uId":4},{"rContent":"asdfsf","rDelete":1,"rId":8,"rLabel":2,"uId":4}]};
+			
+			$(function(){
+				
+				
+				
+				
+				$('#editBtn').attr('disabled','disabled');
+				
+				
+				
+                  var url = "http://127.0.0.1:8080/MyTest/test.action";
+                  
+                  
+
+
+
+
+
+
+
+            
+            // alert("uAccount:"+myData.uAccount);
+              //alert("uId:"+myData.uId);
+               //alert("uName:"+myData.uName);
+                //alert("uPassword:"+myData.uPassword);
+                
+                var allRecords=myData.uRecordInfos;
+                
+                
+                var showRecord=function(i){
+                	$('#saveBtn').attr('disabled','disabled');
+					$('#editBtn').removeAttr('disabled');
+                   $('#profileDiv').attr("hidden",'hidden');
+                   $('#radioWrapper0').removeAttr("hidden");
+					$('#radioWrapper1').removeAttr("hidden");
+					$('#radioWrapper2').removeAttr("hidden");
+					$('#radioWrapper3').removeAttr("hidden");
+                	
+				//alert(allRecords[i].rContent);
+				$('#summernote').summernote('code', allRecords[i].rContent);
+				
+				var markup = $('#summernote').summernote('code');
+					$('#summernote').summernote('destroy');
+					$('#mainBody').attr('class','card-body bg-light');
+				
+				switch(allRecords[i].rLabel)
+						{
+						case 0:
+						checkLabel(0);
+						  break;
+						case 1:
+						checkLabel(1);
+						  break;
+						  case 2:
+						checkLabel(2);
+						  break;
+						  case 3:
+						checkLabel(3);
+						  break;
+						}
+			}
+                
+                var checkLabel=function(a){
+                	$('#radio0').removeAttr('checked');
+                	$('#radio1').removeAttr('checked');
+                	$('#radio2').removeAttr('checked');
+                	$('#radio3').removeAttr('checked');
+                	$("#radio"+a).attr('checked','checked');
+                	
+                	
+                		$('#radio0').attr('disabled','disabled');
+					$('#radio1').attr('disabled','disabled');
+					$('#radio2').attr('disabled','disabled');
+					$('#radio3').attr('disabled','disabled');
+					
+                	
+                }
+                
+                
+                
+                
+                
+                for (var i = 0; i < allRecords.length; i++) {
+                	var record=allRecords[i];
+                	// alert("rContent:"+record.rContent);
+                	  //alert("rDelete:"+record.rDelete);
+                	   //alert("rId:"+record.rId);
+                	    //alert("rLabel:"+record.rLabel);
+                	     //alert("uId:"+record.uId);
+                	     
+                	   //  if(){
+                	     	//alert('i========'+i);
+                	     //	$("#noLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
+                	     	// $("#"+i).click( function () { showRecord($(this).attr('id')) });
+                	     //}
+                	     
+                	     
+                	     switch(record.rLabel)
+						{
+						case 0:
+						$("#noLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
+						  break;
+						case 1:
+						$("#studyLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
+						  break;
+						  case 2:
+						$("#workLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
+						  break;
+						  case 3:
+						$("#lifeLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
+						  break;
+						}
+						 $("#"+i).click( function () {
+						 	
+						 	
+						 	
+						 
+					 currentRid=record.rId; 
+						      showRecord($(this).attr('id'));
+					
+						 });
+                	
+                }
+                
+                
+                
+                
+                
+               
+			});
+			
+			
+			
+			
+		</script>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-2">
+
+					<div class="card">
+						<div class="card-header">
+							<h6 class="card-title text-center">功能</h6>
+						</div>
+						<div class="card-body">
+							<div class="row bg-light">
+								<button  id="editBtn" class="btn btn-primary btn-block" onclick="edit()"  >
+ 编辑
+</button>
+								<button id="saveBtn" class="btn btn-primary btn-block" onclick="save()">
+ 保存
+</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="card-header">
+							<h6 class="card-title text-center">标签</h6>
+						</div>
+						<div class="card-body">
+							<div class="row ">
+								<button class="btn btn-primary btn-block " data-toggle="collapse" data-target="#content">
+ 未标签
+</button>
+							</div>
+							<div class="row ">
+								<div class="collapse" id="content">
+									<div class="list-group" id="noLabelGroup">
+									</div>
+								</div>
+							</div>
+							<div class="row ">
+								<button class="btn btn-primary btn-block " data-toggle="collapse" data-target="#content1">
+ 学习
+</button>
+							</div>
+							<div class="row ">
+								<div class="collapse" id="content1">
+									<div class="list-group " id="studyLabelGroup">
+									</div>
+								</div>
+							</div>
+							<div class="row bg-light">
+								<button class="btn btn-primary btn-block" data-toggle="collapse" data-target="#content2">
+ 工作
+</button>
+							</div>
+							<div class="row ">
+								<div class="collapse" id="content2">
+									<div class="list-group " id="workLabelGroup">
+									</div>
+								</div>
+							</div>
+							<div class="row bg-light">
+								<button class="btn btn-primary btn-block" data-toggle="collapse" data-target="#content3">
+ 生活
+</button>
+							</div>
+							<div class="row ">
+								<div class="collapse" id="content3">
+									<div class="list-group " id="lifeLabelGroup">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="card">
+						<div class="card-header">
+							<h6 class="card-title text-center">账户</h6>
+						</div>
+						<div class="card-body">
+							<div class="row bg-light">
+								<button id="profileBtn" onclick="checkProfile()" class="btn btn-primary btn-block">
+ 个人资料
+</button>
+								<button id="exitBtn" class="btn btn-primary btn-block" data-toggle="modal" data-target="#exitModal">
+ 退出登录
+</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-10 ">
+					<div id="id="mainHead"  class="card-header ">
+						<h2 id="mainHeadTitle" class="card-title text-center">随心记</h6>
+					</div>
+					<div id="mainBody" class="card-body bg-primary">
+						
+						<label class="radio-inline" id="radioWrapper0">
+  <input type="radio" name="label" id="radio0" value="0"  checked="checked"> 未标签
+</label>
+
+						<label class="radio-inline" id="radioWrapper1">
+  <input type="radio" name="label" id="radio1" value="1" >学习
+</label>
+
+						<label class="radio-inline" id="radioWrapper2">
+  <input type="radio" name="label" id="radio2" value="2"  > 工作
+</label>
+
+						<label class="radio-inline" id="radioWrapper3">
+  <input type="radio" name="label" id="radio3" value="3" > 生活
+</label>
+						
+						
+
+
+
+							<div id="summernote"></div>
+							<div id="profile">
+								<!-------------------------------------------->
+								<div id="profileDiv" hidden="hidden">
+									<div class="form-group row">
+    <label for="inputName" class="col-sm-2 form-control-label">昵称：</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="inputName" required="required" placeholder="昵称" readonly="readonly" onkeyup="nameIsNotNull(this.value)" onfocus="nameIsNotNull(this.value)" onblur="nameIsNotNull(this.value)">
+    </div>
+  </div>
+  <div class="form-group row">
+    <label for="inputAccount" class="col-sm-2 form-control-label" >账号：</label>
+    <div class="col-sm-10">
+      <input   class="form-control" id="inputAccount" placeholder="账号" readonly="readonly">
+    </div>
+  </div>
+  <div class="form-group row" hidden="hidden" id="inputPasswordDiv">
+    <label for="inputPassword" class="col-sm-2 form-control-label" >新密码</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" maxlength="10" onkeyup="validate(this.value)" onfocus="validate(this.value)" onblur="validate(this.value)" id="inputPassword" placeholder="新密码" required="required">
+      <span id="tishi"></span>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button id="saveProfileBtn"  class="btn btn-default" hidden="hidden" onclick="saveProfile()">保存</button>
+      <button id="editProfileBtn"  class="btn btn-default" onclick="editProfile()">修改</button>
+    </div>
+  </div>
+</div>
+								<!---------------------------------------->
+							</div>
+					</div>
+
+				</div>
+			</div>
+			
+			
+			
+			
+			
+			
+			<!--是否退出登录的模态框-->
+			<!-- Modal -->
+<div class="modal fade" id="exitModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      	 <h4 class="modal-title" id="myexitModalLabel">确认退出</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+       
+      </div>
+      <div class="modal-body">
+       你真的要退出登录吗？
+      </div>
+      <div class="modal-footer">
+        <button  type="button" class="btn btn-danger" data-dismiss="modal" onclick="exit()">确认</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--是否保存的模态框-->
+			<!-- Modal -->
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      	 <h4 class="modal-title" id="mysaveModalLabel">是否保存？</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+          <span class="sr-only">Close</span>
+        </button>
+       
+      </div>
+      <div class="modal-body">
+       您是否保存？
+      </div>
+      <div class="modal-footer">
+        <button  type="button" class="btn btn-primary" onclick="saveRecord()" data-dismiss="modal">是</button>
+        <button id="noSave" type="button" class="btn btn-danger" data-dismiss="modal" >否</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+			<script>
+				
+				
+				 function validate(str) {
+                  var pattern =/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,10}$/;
+                  if (!pattern.test(str)) {  
+              	 document.getElementById("tishi").innerHTML="<font color='red'>密码须为6~10位字母和数字的组合</font>";
+              	  document.getElementById("saveProfileBtn").disabled = true;
+              	 
+              } else {  
+              	 document.getElementById("tishi").innerHTML="<font color='green'></font>";
+              	  document.getElementById("saveProfileBtn").disabled = false;
+              }  
+              }
+				 
+				 
+				 
+				 
+				$('#summernote').summernote({
+					placeholder: '开始一条新的记录吧！！',
+					tabsize: 2,
+					height: 400,
+					lang: 'zh-CN'
+				});
+
+				var save = function() {
+					$('#profileBtn').removeAttr('disabled');
+					$('#mainHeadTitle').text("随心记");
+					$('#profileDiv').attr("hidden","hidden");
+					var markup = $('#summernote').summernote('code');
+					$('#summernote').summernote('destroy');
+					
+					
+					$('#mainBody').attr('class','card-body bg-light');
+					$('#saveBtn').attr('disabled','disabled');
+					$('#editBtn').removeAttr('disabled');
+					
+					
+					$('#radio0').attr('disabled','disabled');
+					$('#radio1').attr('disabled','disabled');
+					$('#radio2').attr('disabled','disabled');
+					$('#radio3').attr('disabled','disabled');
+					
+					
+					$('#radioWrapper0').removeAttr("hidden");
+					$('#radioWrapper1').removeAttr("hidden");
+					$('#radioWrapper2').removeAttr("hidden");
+					$('#radioWrapper3').removeAttr("hidden");
+					
+					
+					
+					saveRecord();
+					
+					
+				};
+				var edit = function() {
+					$('#profileBtn').removeAttr('disabled');
+					$('#mainHeadTitle').text("随心记");
+					$('#profileDiv').attr("hidden","hidden");
+					
+					$('#summernote').summernote({
+						focus: true,
+						tabsize: 2,
+						height: 400,
+						lang: 'zh-CN'
+					});
+					$('#mainBody').attr('class','card-body bg-primary');
+					
+					$('#saveBtn').removeAttr('disabled');
+					$('#editBtn').attr('disabled','disabled');
+					
+					$('#radio0').removeAttr('disabled');
+					$('#radio1').removeAttr('disabled');
+					$('#radio2').removeAttr('disabled');
+					$('#radio3').removeAttr('disabled');
+					$('#radioWrapper0').removeAttr("hidden");
+					$('#radioWrapper1').removeAttr("hidden");
+					$('#radioWrapper2').removeAttr("hidden");
+					$('#radioWrapper3').removeAttr("hidden");
+				};
+				var checkProfile=function(){
+				
+					
+					if($('#editBtn').attr('disabled')=="disabled"){
+						//alert('是否保存？？');
+						//$('#editBtn').removeAttr('disabled');
+					//$('#saveBtn').attr('disabled','disabled');
+					
+					
+					$('#profileBtn').attr('data-toggle','modal');
+					$('#profileBtn').attr('data-target','#saveModal');
+					
+					 $("#noSave").click( function () {
+					 	showProfile();
+					 });
+					
+					
+					
+					
+					}else{
+						
+					showProfile();
+					}
+					
+					
+				}
+				
+				var saveRecord=function(){
+					
+					var newRLabel=$(":input:checked").attr("value");
+					var newRContent=$('#summernote').summernote('code');
+					$('#summernote').summernote('destroy');
+					alert(newRContent);
+					alert(currentRid+"="+newRLabel+"="+newRContent);
+					var url = "http://127.0.0.1:8080/MyTest/test.action";
+					 $.post(url, { "rId": currentRid,"rLabel":newRLabel, "rContent":newRContent},
+				          function(data){
+				          
+				          }, "text");
+					
+					// location.reload() ;
+					
+				}
+				var showProfile=function(){
+					
+					$('#profileBtn').removeAttr('data-toggle');
+					$('#profileBtn').removeAttr('data-target');
+					$('#mainBody').attr('class','card-body bg-primary');
+					$('#mainHeadTitle').text("个人资料");
+					$('#summernote').summernote('destroy');
+					$('#profileDiv').removeAttr("hidden");
+					$('#summernote').empty();
+					$('#radioWrapper0').attr('hidden','hidden');
+					$('#radioWrapper1').attr('hidden','hidden');
+					$('#radioWrapper2').attr('hidden','hidden');
+					$('#radioWrapper3').attr('hidden','hidden');
+					
+					$('#profileBtn').attr('disabled','disabled');
+					$('#editBtn').removeAttr('disabled');
+					$('#saveBtn').attr('disabled','disabled');
+					
+					$("#noSave").unbind();
+					
+					
+					$('#inputName').attr('value',myData.uName);
+					$('#inputAccount').attr('value',myData.uAccount);
+					
+					
+				}
+				
+				var editProfile=function(){
+					$('#mainHeadTitle').text("修改个人资料");
+					$('#inputName').removeAttr("readonly");
+					$('#inputPasswordDiv').removeAttr("hidden");
+					$('#reInputPasswordDiv').removeAttr("hidden");
+					$('#saveProfileBtn').removeAttr('hidden');
+					$('#editProfileBtn').attr('hidden','hidden');
+				}
+				var saveProfile=function(){
+					$('#mainHeadTitle').text("个人资料");
+					$('#inputName').attr('readonly','readonly');
+					$('#inputPasswordDiv').attr('hidden','hidden');
+					$('#reInputPasswordDiv').attr('hidden','hidden');
+					$('#saveProfileBtn').attr('hidden','hidden');
+					$('#editProfileBtn').removeAttr('hidden');
+					var name=$("#inputName").val();
+					var pwd=$("#inputPassword").val();
+					$.post(
+            "http://127.0.0.1:8080/MyTest/test.action",
+          	{'account':name,'pwd':pwd},
+          	function(data){
+          		//alert(data);
+          		if(data=='failure'){
+          			alert("修改失败");
+          			location.reload();
+          		}else{
+          			alert("修改成功");
+          		}
+          	},
+          	'text'
+          	);
+				}
+				function nameIsNotNull(str){
+					 if(str==null || str.length==0){
+					 	 document.getElementById("tishi").innerHTML="<font color='red'>昵称不能为空</font>";
+              	        document.getElementById("saveProfileBtn").disabled = true;
+					 }else{
+              	        document.getElementById("saveProfileBtn").disabled = false;
+              	         document.getElementById("tishi").innerHTML="<font color='red'></font>";
+					 }
+				}
+				
+				
+				function exit(){
+					$.post(
+						"http://127.0.0.1:8080/MyTest/test.action",
+						function(){
+							alert("退出登录成功！");
+						},
+						);
+						
+						location.reload();
+				}
+			</script>
+	</body>
+
+</html>
