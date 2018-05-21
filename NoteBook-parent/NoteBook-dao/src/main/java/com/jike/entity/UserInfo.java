@@ -3,60 +3,53 @@ package com.jike.entity;
 import java.util.List;
 
 public class UserInfo {
-	private Integer id;
-	private String name;
-	private String account;
-	private String password;
-	private List<RecordInfo> recordInfos;
+    private Integer uId;
 
-	public UserInfo() {
-		super();
+    private String uName;
+
+    private String uAccount;
+
+    private String uPassword;
+    
+    private List<RecordInfo> uRecordInfos;
+
+    public List<RecordInfo> getuRecordInfos() {
+		return uRecordInfos;
 	}
 
-	public Integer getId() {
-		return id;
+	public void setuRecordInfos(List<RecordInfo> uRecordInfos) {
+		this.uRecordInfos = uRecordInfos;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+	public Integer getuId() {
+        return uId;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public void setuId(Integer uId) {
+        this.uId = uId;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public String getuName() {
+        return uName;
+    }
 
-	public String getAccount() {
-		return account;
-	}
+    public void setuName(String uName) {
+        this.uName = uName;
+    }
 
-	public void setAccount(String account) {
-		this.account = account;
-	}
+    public String getuAccount() {
+        return uAccount;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setuAccount(String uAccount) {
+        this.uAccount = uAccount;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getuPassword() {
+        return uPassword;
+    }
 
-	public List<RecordInfo> getRecordInfos() {
-		return recordInfos;
-	}
-
-	public void setRecordInfos(List<RecordInfo> recordInfos) {
-		this.recordInfos = recordInfos;
-	}
-
-	@Override
-	public String toString() {
-		return "UserInfo [id=" + id + ", name=" + name + ", account=" + account + ", password=" + password
-				+ ", recordInfos=" + recordInfos + "]";
-	}
-
+    public void setuPassword(String uPassword) {
+        this.uPassword = uPassword;
+    }
 }

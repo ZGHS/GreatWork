@@ -4,9 +4,9 @@ import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import com.jike.dao.UserInfoDao;
-import com.jike.dao.PicInfoDao;
-import com.jike.dao.RecordInfoDao;
+import com.jike.dao.UserInfoMapper;
+import com.jike.dao.PicInfoMapper;
+import com.jike.dao.RecordInfoMapper;
 import com.jike.entity.PicInfo;
 import com.jike.entity.RecordInfo;
 import com.jike.entity.UserInfo;
@@ -17,9 +17,9 @@ public class DaoTest {
 	public void testUserInfoDao() throws Exception {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-dao.xml");
 
-		UserInfoDao userInfoDao = ac.getBean(UserInfoDao.class);
+		UserInfoMapper userInfoDao = ac.getBean(UserInfoMapper.class);
 
-		UserInfo userInfo = userInfoDao.getById(1);
+		UserInfo userInfo = userInfoDao.selectByPrimaryKey(1);
 		System.out.println(userInfo);
 		((ClassPathXmlApplicationContext) ac).close();
 	}
@@ -28,8 +28,8 @@ public class DaoTest {
 	public void testRecordInfoDao() throws Exception {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-dao.xml");
 
-		RecordInfoDao recordInfoDao = ac.getBean(RecordInfoDao.class);
-		RecordInfo byId = recordInfoDao.getById(1);
+		RecordInfoMapper recordInfoDao = ac.getBean(RecordInfoMapper.class);
+		RecordInfo byId = recordInfoDao.selectByPrimaryKey(1);
 		System.out.println(byId);
 		((ClassPathXmlApplicationContext) ac).close();
 	}
@@ -38,8 +38,8 @@ public class DaoTest {
 	public void testPicInfoDao() throws Exception {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-dao.xml");
 
-		PicInfoDao picInfoDao = ac.getBean(PicInfoDao.class);
-		PicInfo byId = picInfoDao.getById(1);
+		PicInfoMapper picInfoDao = ac.getBean(PicInfoMapper.class);
+		PicInfo byId = picInfoDao.selectByPrimaryKey(1);
 		System.out.println(byId);
 		((ClassPathXmlApplicationContext) ac).close();
 	}

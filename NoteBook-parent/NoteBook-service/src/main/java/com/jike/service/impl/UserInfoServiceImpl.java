@@ -2,39 +2,51 @@ package com.jike.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.jike.dao.UserInfoDao;
+import com.jike.dao.RecordInfoMapper;
+import com.jike.dao.UserInfoMapper;
 import com.jike.entity.UserInfo;
 import com.jike.service.UserInfoService;
 
 @Service("userInfoService")
 public class UserInfoServiceImpl implements UserInfoService {
 	@Autowired
-	public UserInfoDao userInfoDao;
+	public UserInfoMapper userInfoDao;
+	@Autowired
+	public RecordInfoMapper recordInfoDao;
 
 	@Override
 	public UserInfo login(UserInfo userInfo) {
-		// TODO Auto-generated method stub
+		userInfo = userInfoDao.selectByAccount(userInfo.getuAccount());
+		if (userInfo == null)
+			return null;
+		else if (userInfo.getuPassword().equals(userInfo.getuPassword())) {
+			userInfo.setuRecordInfos(recordInfoDao.selectByUser(userInfo.getuId()));
+
+			return userInfo;
+		}
 		return null;
 	}
 
 	@Override
 	public UserInfo register(UserInfo userInfo) {
-		// TODO Auto-generated method stub
+		if (userInfoDao.selectByAccount(userInfo.getuAccount()) == null) {
+			userInfoDao.insert(userInfo);
+			return userInfo;
+		}
 		return null;
 	}
 
 	@Override
 	public UserInfo modifyProfile(UserInfo userInfo) {
-		// TODO Auto-generated method stub
-		return null;
+		userInfoDao.updateByPrimaryKeySelective(userInfo);
+		return userInfo;
 	}
 
-	public UserInfoDao getUserInfoDao() {
+	public UserInfoMapper getUserInfoDao() {
 		return userInfoDao;
 	}
 
-	public void setUserInfoDao(UserInfoDao userInfoDao) {
+	public void setUserInfoDao(UserInfoMapper userInfoDao) {
 		this.userInfoDao = userInfoDao;
 	}
 

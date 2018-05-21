@@ -1,41 +1,33 @@
 package com.jike.entity;
 
 public class PicInfo {
-	private Integer id;
-	private Integer rid;
-	private String suffix;
+    private Integer pId;
 
-	public PicInfo() {
-		super();
-	}
+    private Integer rId;
 
-	public Integer getId() {
-		return id;
-	}
+    private String pSuffix;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public Integer getpId() {
+        return pId;
+    }
 
-	public Integer getRid() {
-		return rid;
-	}
+    public void setpId(Integer pId) {
+        this.pId = pId;
+    }
 
-	public void setRid(Integer rid) {
-		this.rid = rid;
-	}
+    public Integer getrId() {
+        return rId;
+    }
 
-	public String getSuffix() {
-		return suffix;
-	}
+    public void setrId(Integer rId) {
+        this.rId = rId;
+    }
 
-	public void setSuffix(String suffix) {
-		this.suffix = suffix;
-	}
+    public String getpSuffix() {
+        return pSuffix;
+    }
 
-	@Override
-	public String toString() {
-		return "PicInfo [id=" + id + ", rid=" + rid + ", suffix=" + suffix + "]";
-	}
-
+    public void setpSuffix(String pSuffix) {
+        this.pSuffix = pSuffix;
+    }
 }

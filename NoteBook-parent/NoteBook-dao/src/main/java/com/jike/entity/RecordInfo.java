@@ -1,81 +1,65 @@
 package com.jike.entity;
 
 import java.util.Date;
-import java.util.List;
 
 public class RecordInfo {
-	private Integer id;
-	private Integer uid;
-	private String content;
-	private Date date;
-	private Integer isDelete;
-	private Integer label;
-	private List<PicInfo> picInfos;
+    private Integer rId;
 
-	public RecordInfo() {
-		super();
-	}
+    private Integer uId;
 
-	public Integer getId() {
-		return id;
-	}
+    private Date rDate;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    private Integer rDelete;
 
-	public Integer getUid() {
-		return uid;
-	}
+    private Integer rLabel;
 
-	public void setUid(Integer uid) {
-		this.uid = uid;
-	}
+    private String rContent;
 
-	public String getContent() {
-		return content;
-	}
+    public Integer getrId() {
+        return rId;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    public void setrId(Integer rId) {
+        this.rId = rId;
+    }
 
-	public Date getDate() {
-		return date;
-	}
+    public Integer getuId() {
+        return uId;
+    }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+    public void setuId(Integer uId) {
+        this.uId = uId;
+    }
 
-	public Integer getIsDelete() {
-		return isDelete;
-	}
+    public Date getrDate() {
+        return rDate;
+    }
 
-	public void setIsDelete(Integer isDelete) {
-		this.isDelete = isDelete;
-	}
+    public void setrDate(Date rDate) {
+        this.rDate = rDate;
+    }
 
-	public Integer getLabel() {
-		return label;
-	}
+    public Integer getrDelete() {
+        return rDelete;
+    }
 
-	public void setLabel(Integer label) {
-		this.label = label;
-	}
+    public void setrDelete(Integer rDelete) {
+        this.rDelete = rDelete;
+    }
 
-	public List<PicInfo> getPicInfos() {
-		return picInfos;
-	}
+    public Integer getrLabel() {
+        return rLabel;
+    }
 
-	public void setPicInfos(List<PicInfo> picInfos) {
-		this.picInfos = picInfos;
-	}
+    public void setrLabel(Integer rLabel) {
+        this.rLabel = rLabel;
+    }
 
-	@Override
-	public String toString() {
-		return "RecordInfo [id=" + id + ", uid=" + uid + ", content=" + content + ", date=" + date + ", isDelete="
-				+ isDelete + ", label=" + label + ", picInfos=" + picInfos + "]";
-	}
+    public String getrContent() {
+        return rContent;
+    }
 
+    public void setrContent(String rContent) {
+        this.rContent = rContent;
+    }
 }
