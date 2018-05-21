@@ -22,8 +22,8 @@
 
 			var currentRid;
 			
-			 var   myData={"uAccount":"13838384380","uId":4,"uName":"linainai38","uPassword":"123456","uRecordInfos":[{"rContent":"今天是否，好条件看到房价是否考虑","rDelete":1,"rId":5,"rLabel":1,"uId":4},{"rContent":"范德萨发地方萨芬撒发生的发生过任何他仍然提供的","rDelete":1,"rId":6,"rLabel":0,"uId":4},{"rContent":"防守打法是范德萨发生发斯蒂芬","rDelete":1,"rId":7,"rLabel":2,"uId":4},{"rContent":"asdfsf","rDelete":1,"rId":8,"rLabel":2,"uId":4}]};
-			
+			 //var   myData={"uAccount":"13838384380","uId":4,"uName":"linainai38","uPassword":"123456","uRecordInfos":[{"rContent":"今天是否，好条件看到房价是否考虑","rDelete":1,"rId":5,"rLabel":1,"uId":4},{"rContent":"范德萨发地方萨芬撒发生的发生过任何他仍然提供的","rDelete":1,"rId":6,"rLabel":0,"uId":4},{"rContent":"防守打法是范德萨发生发斯蒂芬","rDelete":1,"rId":7,"rLabel":2,"uId":4},{"rContent":"asdfsf","rDelete":1,"rId":8,"rLabel":2,"uId":4}]};
+			var   myData;
 			$(function(){
 				
 				
@@ -33,9 +33,12 @@
 				
 				
 				
-                  var url = "http://127.0.0.1:8080/MyTest/test.action";
+                  var url = "http://127.0.0.1:8080/NoteBook-web/regetsession.action";
                   
-                  
+                  $.post(url,
+				          function(data){
+				          myData=data;
+				          }, "json");
 
 
 
