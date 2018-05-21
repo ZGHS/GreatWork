@@ -1,5 +1,7 @@
 package com.jike.web;
 
+import static org.hamcrest.CoreMatchers.nullValue;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -59,12 +61,11 @@ public class UserInfoController {
 	}
 
 	@RequestMapping(value = "logout", produces = "text/html;charset=UTF-8")
-	public String logOut(HttpServletRequest request)
-	{
-		if(request.getSession(false)!=null //如果没有对应的session，返回null，不会创建session
-			&& request.getSession().getAttribute("accoun")!=null){
+	public String logOut(HttpServletRequest request) {
+		if (request.getSession(false) != null // 如果没有对应的session，返回null，不会创建session
+				&& request.getSession().getAttribute("accoun") != null) {
 			request.getSession().invalidate();
-		}		
+		}
 		return "login";
 	}
 
@@ -73,6 +74,21 @@ public class UserInfoController {
 	// public String tlogin() {
 	// return "index";
 	// }
+
+	@RequestMapping(value = "loginandroid", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String loginAndroid(UserInfo userInfo, HttpServletRequest request) {
+		UserInfo login = userInfoService.login(userInfo);
+		if (login != null) {
+			HttpSession session = request.getSession(true);
+			session.setAttribute("accountInfo", login);
+			UserInfo getsession;
+			getsession = (UserInfo) session.getAttribute("accountInfo");
+			String jsonString = JSON.toJSONString(getsession);
+			return jsonString;
+		} else
+			return "false";
+	}
 
 	public UserInfoService getUserInfoService() {
 		return userInfoService;
