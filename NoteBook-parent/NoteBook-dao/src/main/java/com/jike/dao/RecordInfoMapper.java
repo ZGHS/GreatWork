@@ -9,7 +9,7 @@ public interface RecordInfoMapper {
 
     int insert(RecordInfo record);
 
-    RecordInfo insertSelective(RecordInfo record);
+    int insertSelective(RecordInfo record);
 
     RecordInfo selectByPrimaryKey(Integer rId);
     
@@ -20,4 +20,8 @@ public interface RecordInfoMapper {
     int updateByPrimaryKeyWithBLOBs(RecordInfo record);
 
     int updateByPrimaryKey(RecordInfo record);
+
+	RecordInfo selectNewInfo(RecordInfo recordInfo);
+
+	int updated(Integer id);
 }

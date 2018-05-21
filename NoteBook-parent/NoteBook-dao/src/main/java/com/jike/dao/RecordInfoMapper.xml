@@ -36,6 +36,15 @@
 		from t_record_info
 		where u_id=#{uId,jdbcType=INTEGER}
 	</select>
+	<select id="selectNewInfo" parameterType="com.jike.entity.RecordInfo"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_record_info
+		where u_id=#{uId,jdbcType=INTEGER} and UNIX_TIMESTAMP(r_date)=UNIX_TIMESTAMP(#{rDate,jdbcType=TIMESTAMP})
+	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from
 		t_record_info
@@ -56,9 +65,6 @@
 	<insert id="insertSelective" parameterType="com.jike.entity.RecordInfo">
 		insert into t_record_info
 		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="rId != null">
-				r_id,
-			</if>
 			<if test="uId != null">
 				u_id,
 			</if>
@@ -76,9 +82,6 @@
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="rId != null">
-				#{rId,jdbcType=INTEGER},
-			</if>
 			<if test="uId != null">
 				#{uId,jdbcType=INTEGER},
 			</if>
@@ -124,6 +127,12 @@
 		r_label = #{rLabel,jdbcType=INTEGER},
 		r_content =
 		#{rContent,jdbcType=LONGVARCHAR}
+		where r_id = #{rId,jdbcType=INTEGER}
+	</update>
+	<update id="updated" parameterType="com.jike.entity.RecordInfo">
+		update
+		t_record_info
+		set r_delete = '0'
 		where r_id = #{rId,jdbcType=INTEGER}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.jike.entity.RecordInfo">
