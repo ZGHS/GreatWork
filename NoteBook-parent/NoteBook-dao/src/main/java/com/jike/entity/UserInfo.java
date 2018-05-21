@@ -13,7 +13,20 @@ public class UserInfo {
     
     private List<RecordInfo> uRecordInfos;
 
-    public List<RecordInfo> getuRecordInfos() {
+    public UserInfo(String uAccount, String uPassword) {
+    	this.uAccount=uAccount;
+    	this.uPassword=uPassword;
+	}
+
+	public UserInfo(Integer uId, String uName, String uAccount, String uPassword) {
+		super();
+		this.uId = uId;
+		this.uName = uName;
+		this.uAccount = uAccount;
+		this.uPassword = uPassword;
+	}
+
+	public List<RecordInfo> getuRecordInfos() {
 		return uRecordInfos;
 	}
 

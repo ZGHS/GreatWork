@@ -3,10 +3,12 @@ package com.jike.web;
 import static org.hamcrest.CoreMatchers.nullValue;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -38,18 +40,29 @@ public class UserInfoController {
 	}
 
 	@RequestMapping(value = "login", produces = "text/html;charset=UTF-8")
-	public String login(UserInfo userInfo, HttpServletRequest request) {
+	@ResponseBody
+	public String login(HttpServletRequest request,HttpServletResponse response) {
+		//跨域问题，需要加上
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String uAccount = request.getParameter("uAccount");
+		String uPassword = request.getParameter("uPassword");
+		UserInfo userInfo=new UserInfo(uAccount,uPassword);
+		
 		UserInfo login = userInfoService.login(userInfo);
-		// String jsonString = JSON.toJSONString(login);
-		// System.out.println("login run");
 		if (login != null) {
 			HttpSession session = request.getSession(true);
 			session.setAttribute("accountInfo", login);
-			return "index";
+			return "{\"info\":\"success\",\"page\":\"loginSuccess.action\"}";
 		} else
-			return "login";
+			return "{\"info\":\"failure\",\"page\":\"login.html\"}";
+	}
+	@RequestMapping(value = "loginSuccess", produces = "text/html;charset=UTF-8")
+	public String loginSuccess() {
+			return "index";
 	}
 
+	
+	
 	@RequestMapping(value = "regetsession", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String reGetSession(HttpServletRequest request) {

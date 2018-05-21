@@ -16,13 +16,13 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 	@Override
 	public UserInfo login(UserInfo userInfo) {
-		userInfo = userInfoDao.selectByAccount(userInfo.getuAccount());
-		if (userInfo == null)
+		UserInfo realUserInfo = userInfoDao.selectByAccount(userInfo.getuAccount());
+		if (realUserInfo == null)
 			return null;
-		else if (userInfo.getuPassword().equals(userInfo.getuPassword())) {
-			userInfo.setuRecordInfos(recordInfoDao.selectByUser(userInfo.getuId()));
+		else if (userInfo.getuPassword().equals(realUserInfo.getuPassword())) {
+			realUserInfo.setuRecordInfos(recordInfoDao.selectByUser(realUserInfo.getuId()));
 
-			return userInfo;
+			return realUserInfo;
 		}
 		return null;
 	}
