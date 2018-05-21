@@ -19,8 +19,6 @@ public class RecordInfoController {
 	@RequestMapping(value = "saveRecord", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String saveRecord(RecordInfo recordInfo) {
-		System.out.println("hello world");
-		System.out.println(recordInfo);
 		RecordInfo saveRecord = recordInfoService.saveRecord(recordInfo);
 		String jsonString = JSON.toJSONString(saveRecord);
 		return jsonString;
@@ -30,7 +28,7 @@ public class RecordInfoController {
 	@ResponseBody
 	public String deleteRecord(Integer id) {
 		System.out.println("hello world");
-		RecordInfo deleteRecord = recordInfoService.deleteRecord(id);
+		String deleteRecord = recordInfoService.deleteRecord(id);
 		String jsonString = JSON.toJSONString(deleteRecord);
 		return jsonString;
 	}

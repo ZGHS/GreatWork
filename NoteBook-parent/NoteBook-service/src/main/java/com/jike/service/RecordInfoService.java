@@ -7,7 +7,7 @@ import com.jike.entity.RecordInfo;
 public interface RecordInfoService {
 	RecordInfo saveRecord(RecordInfo recordInfo);
 
-	RecordInfo deleteRecord(Integer id);
+	String deleteRecord(Integer id);
 
 	String updateRecord(RecordInfo recordInfo);
 
