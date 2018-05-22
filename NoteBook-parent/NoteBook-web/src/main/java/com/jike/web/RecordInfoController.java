@@ -86,7 +86,7 @@ public class RecordInfoController {
 		// String jsonString = JSON.toJSONString(updateRecord);
 		return updateRecord;
 	}
-
+	
 	@RequestMapping(value = "getByUidAndMark", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String getByUidAndMark(RecordInfo record) {

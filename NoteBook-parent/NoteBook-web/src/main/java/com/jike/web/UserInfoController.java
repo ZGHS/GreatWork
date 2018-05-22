@@ -84,7 +84,7 @@ public class UserInfoController {
 	@RequestMapping(value = "logout", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String logOut(HttpSession session) {
-		
+	
 			session.invalidate();
 			return "{\"page\":\"login.html\"}";
 		
