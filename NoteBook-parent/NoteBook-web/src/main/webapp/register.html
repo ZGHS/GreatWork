@@ -24,13 +24,16 @@
 	</head>
 
 	<body>
-
+<div id="tipDiv" class="alert alert-success alert-dismissable" hidden="hidden">
+                <button type="button" class="close" data-dismiss = "alert" aria-hidden="false">×</button>  
+            </div>  
 		<div class="page-container">
+		
 			<h1>注册</h1>
 			<form action="" method="post">
 				<input id="account" type="text" name="account" class="username" maxlength="11" onkeyup="isPoneAvailable(this.value)"  placeholder="账号">
-				<input id="pwd1" type="password" name="password1" class="password" maxlength="10" placeholder="密码" onkeyup="validate(this.value)">
-				<input id="pwd2" type="password" name="Password2" class="password" maxlength="10" placeholder="确认密码" onkeyup="validate(this.value)" >
+				<input id="pwd1" type="password" name="password1" class="password" maxlength="14" placeholder="密码" onkeyup="validate(this.value)">
+				<input id="pwd2" type="password" name="Password2" class="password" maxlength="14" placeholder="确认密码" onkeyup="validate(this.value)" >
 				<span id="tishi"></span>
 				<button type="button" id="submit" onclick="register()"  style="background-color: blue;">注册</button>
 				<div class="error"><span>+</span></div>
@@ -49,9 +52,9 @@
               function validate(str) {
                   var pwd1 = document.getElementById("pwd1").value;
                   var pwd2 = document.getElementById("pwd2").value;
-                  var pattern =/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,10}$/;
+                  var pattern =/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{14}$/;
                   if (!pattern.test(str)) {  
-              	 document.getElementById("tishi").innerHTML="<font color='red'>密码须为6~10位字母和数字的组合</font>";
+              	 document.getElementById("tishi").innerHTML="<font color='red'>密码须为14位字母和数字的组合</font>";
               } else {  
               	 document.getElementById("tishi").innerHTML="<font color='green'>密码正确</font>";
               	 
@@ -74,19 +77,21 @@
           	var account=$("#account").val();
           	var pwd=$("#pwd1").val();
           	$.post(
-            "http://127.0.0.1:8080/MyTest/test.action",
-          	{'account':account,'pwd':pwd},
+            "http://127.0.0.1:8080/NoteBook-web/register.action",
+          	{'uAccount':account,'uPassword':pwd},
           	function(data){
           		//alert(data);
-          		if(data=='failure'){
+          		$("#tipDiv").removeAttr("hidden");
+          		if(data.info=='failure'){
+          			$("#tipDiv").html("注册失败");
           			alert("注册失败");
-          			location.reload();
           		}else{
+          			$("#tipDiv").html("注册成功");
           			alert("注册成功");
-          			location.href="login.html";
           		}
+          		location.href="http://127.0.0.1:8080/NoteBook-web/"+data.page;
           	},
-          	'text'
+          	'json'
           	);
           }
           </script>

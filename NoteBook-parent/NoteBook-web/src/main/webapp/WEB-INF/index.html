@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>随手记</title>
+		<title>随心记</title>
 		<script type="text/javascript" src="http://127.0.0.1:8080/NoteBook-web/js/jquery-3.3.1.js" ></script>
 		<!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
 		<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -123,16 +123,16 @@ $.ajax({
                 		  switch(record.rLabel)
   						{
   						case 0:
-  						$("#noLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
+  						$("#noLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+(record.rContent).substring(0,11)+"</button>");
   						  break;
   						case 1:
-  						$("#studyLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
+  						$("#studyLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+(record.rContent).substring(0,11)+"</button>");
   						  break;
   						  case 2:
-  						$("#workLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
+  						$("#workLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+(record.rContent).substring(0,11)+"</button>");
   						  break;
   						  case 3:
-  						$("#lifeLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
+  						$("#lifeLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+(record.rContent).substring(0,11)+"</button>");
   						  break;
   						}
   						 $("#"+i).click( function () {
@@ -140,6 +140,7 @@ $.ajax({
   					         // alert("currentRid:====="+currentRid);
   						      showRecord($(this).attr('id'));
   						    $('#deleteBtn').removeAttr('disabled');
+  						  $('#profileBtn').removeAttr('disabled');
   						 });
                 	}
                 	   
@@ -307,7 +308,7 @@ $.ajax({
   <div class="form-group row" hidden="hidden" id="inputPasswordDiv">
     <label for="inputPassword" class="col-sm-2 form-control-label" >新密码</label>
     <div class="col-sm-10">
-      <input type="password" class="form-control" maxlength="10" onkeyup="validate(this.value)" onfocus="validate(this.value)" onblur="validate(this.value)" id="inputPassword" placeholder="新密码" required="required">
+      <input type="password" class="form-control" maxlength="14" onkeyup="validate(this.value)" onfocus="validate(this.value)" onblur="validate(this.value)" id="inputPassword" placeholder="新密码" required="required">
       <span id="tishi"></span>
     </div>
   </div>
@@ -398,9 +399,9 @@ $.ajax({
 				
 				
 				 function validate(str) {
-                  var pattern =/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,10}$/;
+                  var pattern =/^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{14}$/;
                   if (!pattern.test(str)) {  
-              	 document.getElementById("tishi").innerHTML="<font color='red'>密码须为6~10位字母和数字的组合</font>";
+              	 document.getElementById("tishi").innerHTML="<font color='red'>密码须为14位字母和数字的组合</font>";
               	  document.getElementById("saveProfileBtn").disabled = true;
               	 
               } else {  
@@ -578,18 +579,12 @@ $.ajax({
 					var name=$("#inputName").val();
 					var pwd=$("#inputPassword").val();
 					$.post(
-            "http://127.0.0.1:8080/MyTest/test.action",
-          	{'account':name,'pwd':pwd},
+            "http://127.0.0.1:8080/NoteBook-web/modify.action",
+          	{'uName':name,'uPassword':pwd},
           	function(data){
-          		//alert(data);
-          		if(data=='failure'){
-          			alert("修改失败");
-          			//location.reload();
-          		}else{
-          			alert("修改成功");
-          		}
+          		location.href="http://127.0.0.1:8080/NoteBook-web/"+data.page;
           	},
-          	'text'
+          	'json'
           	);
 				}
 				function nameIsNotNull(str){
@@ -607,7 +602,6 @@ $.ajax({
 					$.post(
 						"http://127.0.0.1:8080/NoteBook-web/logout.action",
 						function(data){
-							//alert("退出登录成功！");
 								location.href="http://127.0.0.1:8080/NoteBook-web/"+data.page;
 						},
 						"json"

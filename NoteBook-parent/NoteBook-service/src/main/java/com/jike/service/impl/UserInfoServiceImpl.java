@@ -31,7 +31,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public UserInfo register(UserInfo userInfo) {
 		if (userInfoDao.selectByAccount(userInfo.getuAccount()) == null) {
 			userInfoDao.insert(userInfo);
-			return userInfo;
+			return userInfoDao.selectByAccount(userInfo.getuAccount());
 		}
 		return null;
 	}
@@ -39,7 +39,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Override
 	public UserInfo modifyProfile(UserInfo userInfo) {
 		userInfoDao.updateByPrimaryKeySelective(userInfo);
-		return userInfo;
+		return userInfoDao.selectByPrimaryKey(userInfo.getuId());
 	}
 
 	public UserInfoMapper getUserInfoDao() {

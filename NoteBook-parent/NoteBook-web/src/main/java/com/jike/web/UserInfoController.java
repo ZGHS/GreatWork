@@ -28,11 +28,18 @@ public class UserInfoController {
 	}
 	@RequestMapping(value = "register", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String registerAccount(UserInfo userInfo) {
-		UserInfo register = userInfoService.register(userInfo);
-		String jsonString = JSON.toJSONString(register);
-		System.out.println("registerAccount run");
-		return jsonString;
+	public String registerAccount(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
+		//跨域问题，需要加上
+				response.setHeader("Access-Control-Allow-Origin", "*");
+				String uAccount = request.getParameter("uAccount");
+				String uPassword = request.getParameter("uPassword");
+				UserInfo userInfo=new UserInfo(uAccount,uPassword);
+				UserInfo register = userInfoService.register(userInfo);
+				if (register!=null) {
+					session.setAttribute("accountInfo", register);
+					return "{\"info\":\"success\",\"page\":\"login.html\"}";
+				}
+				return "{\"info\":\"failure\",\"page\":\"register.html\"}";
 	}
 
 	@RequestMapping(value = "modifyAndroid", produces = "text/html;charset=UTF-8")
@@ -43,14 +50,20 @@ public class UserInfoController {
 		System.out.println("modifyUserInfo run");
 		return jsonString;
 	}
-
+//我已经改了不要动
 	@RequestMapping(value = "modify", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String modifyUserInfo(UserInfo userInfo) {
+	public String modifyUserInfo(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		String uName = request.getParameter("uName");
+		String uPassword = request.getParameter("uPassword");
+		UserInfo attribute = (UserInfo) session.getAttribute("accountInfo");
+		Integer uId = attribute.getuId();
+		String uAccount = attribute.getuAccount();
+		UserInfo userInfo=new UserInfo(uId,uName,uAccount,uPassword);
 		UserInfo modifyProfile = userInfoService.modifyProfile(userInfo);
-		String jsonString = JSON.toJSONString(modifyProfile);
-		System.out.println("modifyUserInfo run");
-		return jsonString;
+		session.invalidate();
+		return "{\"page\":\"index.action\"}";
 	}
 
 	@RequestMapping(value = "login", produces = "text/html;charset=UTF-8")
@@ -73,7 +86,8 @@ public class UserInfoController {
 	
 	@RequestMapping(value = "isLogin", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String isLogin(HttpSession session) {
+	public String isLogin(HttpSession session,HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		if (session.getAttribute("accountInfo")==null) {
 			return "{\"info\":\"failure\",\"page\":\"login.html\"}";
 		}else {
