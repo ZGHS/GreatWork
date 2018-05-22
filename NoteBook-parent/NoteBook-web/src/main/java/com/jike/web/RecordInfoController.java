@@ -61,11 +61,15 @@ public class RecordInfoController {
 		String rId = request.getParameter("rId");
 
 		UserInfo loginUser = (UserInfo) session.getAttribute("accountInfo");
+		
+		RecordInfo recordInfo=new RecordInfo();
+		
 		if (loginUser==null) {
 			return "{\"info\":\"failure\",\"page\":\"login.html\"}";
 		}
 		if (rId!=null) {
-			recordInfoService.deleteRecord(Integer.parseInt(rId));
+			recordInfo.setrId(Integer.parseInt(rId));
+			recordInfoService.deleteRecord(recordInfo);
 		}
 			loginUser.setuRecordInfos(recordInfoService.getByUid(loginUser.getuId()));
 			session.setAttribute("accountInfo", loginUser);
@@ -77,25 +81,25 @@ public class RecordInfoController {
 	
 	
 
-	@RequestMapping(value = "updateRecord", produces = "text/html;charset=UTF-8")
-	@ResponseBody
-	public String updateRecord(RecordInfo record) {
-		System.out.println("hello world");
-		System.out.println(record);
-		String updateRecord = recordInfoService.updateRecord(record);
-		// String jsonString = JSON.toJSONString(updateRecord);
-		return updateRecord;
-	}
+//	@RequestMapping(value = "updateRecord", produces = "text/html;charset=UTF-8")
+//	@ResponseBody
+//	public String updateRecord(RecordInfo record) {
+//		System.out.println("hello world");
+//		System.out.println(record);
+//		String updateRecord = recordInfoService.updateRecord(record);
+//		// String jsonString = JSON.toJSONString(updateRecord);
+//		return updateRecord;
+//	}
 	
-	@RequestMapping(value = "getByUidAndMark", produces = "text/html;charset=UTF-8")
-	@ResponseBody
-	public String getByUidAndMark(RecordInfo record) {
-		System.out.println("hello world");
-		System.out.println(record);
-		List<RecordInfo> records = recordInfoService.getByUidAndLabel(record.getuId(), record.getrLabel());
-		String jsonString = JSON.toJSONString(records);
-		return jsonString;
-	}
+//	@RequestMapping(value = "getByUidAndMark", produces = "text/html;charset=UTF-8")
+//	@ResponseBody
+//	public String getByUidAndMark(RecordInfo record) {
+//		System.out.println("hello world");
+//		System.out.println(record);
+//		List<RecordInfo> records = recordInfoService.getByUidAndLabel(record.getuId(), record.getrLabel());
+//		String jsonString = JSON.toJSONString(records);
+//		return jsonString;
+//	}
 
 	@RequestMapping(value = "getByUid", produces = "text/html;charset=UTF-8")
 	@ResponseBody
