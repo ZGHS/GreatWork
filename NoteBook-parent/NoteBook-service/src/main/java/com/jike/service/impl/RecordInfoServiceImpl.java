@@ -47,26 +47,26 @@ public class RecordInfoServiceImpl implements RecordInfoService {
 	public String deleteRecord(RecordInfo recordInfo) {
 		System.out.println(recordInfoDao.updated(recordInfo.getrId()));
 		if (recordInfoDao.updated(recordInfo.getrId()) == 1) {
-			return "true";
+			return "{\"info\":\"true\"}";
 		}
-		return "false";
+		return "{\"info\":\"false\"}";
 	}
 
-	@Override
-	public String updateRecord(RecordInfo recordInfo) {
-		recordInfo.setrDate(new Date());
-		if (recordInfo.getrId() == null) {
-			recordInfoDao.insertSelective(recordInfo);
-			return "success insert";
-		} else {
-			recordInfoDao.updateByPrimaryKeySelective(recordInfo);
-			return "success save";
-		}
-	}
+//	@Override
+//	public String updateRecord(RecordInfo recordInfo) {
+//		recordInfo.setrDate(new Date());
+//		if (recordInfo.getrId() == null) {
+//			recordInfoDao.insertSelective(recordInfo);
+//			return "success insert";
+//		} else {
+//			recordInfoDao.updateByPrimaryKeySelective(recordInfo);
+//			return "success save";
+//		}
+//	}
 
 	@Override
-	public List<RecordInfo> getByUid(RecordInfo recordInfo) {
-		List<RecordInfo> rInfos=recordInfoDao.selectByUser(recordInfo.getuId());
+	public List<RecordInfo> getByUid(Integer uId) {
+		List<RecordInfo> rInfos=recordInfoDao.selectByUser(uId);
 		if(rInfos!=null)
 		{
 			return rInfos;
