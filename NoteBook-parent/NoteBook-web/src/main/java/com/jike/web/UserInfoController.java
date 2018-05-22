@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,13 +28,7 @@ public class UserInfoController {
 	}
 	@RequestMapping(value = "register", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String registerAccount(HttpServletRequest request,HttpServletResponse response) {
-		//跨域问题，需要加上
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		UserInfo userInfo=new UserInfo();
-		userInfo.setuAccount(request.getParameter("uAccount"));
-		userInfo.setuPassword(request.getParameter("uPassWord"));
-		userInfo.setuName(request.getParameter("uName"));
+	public String registerAccount(UserInfo userInfo) {
 		UserInfo register = userInfoService.register(userInfo);
 		String jsonString = JSON.toJSONString(register);
 		System.out.println("registerAccount run");
@@ -51,9 +44,18 @@ public class UserInfoController {
 		return jsonString;
 	}
 
+	@RequestMapping(value = "modify", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String modifyUserInfo(UserInfo userInfo) {
+		UserInfo modifyProfile = userInfoService.modifyProfile(userInfo);
+		String jsonString = JSON.toJSONString(modifyProfile);
+		System.out.println("modifyUserInfo run");
+		return jsonString;
+	}
+
 	@RequestMapping(value = "login", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String login(HttpServletRequest request,HttpServletResponse response) {
+	public String login(HttpSession session,HttpServletRequest request,HttpServletResponse response) {
 		//跨域问题，需要加上
 		response.setHeader("Access-Control-Allow-Origin", "*");
 		String uAccount = request.getParameter("uAccount");
@@ -62,58 +64,47 @@ public class UserInfoController {
 		
 		UserInfo login = userInfoService.login(userInfo);
 		if (login != null) {
-			HttpSession session = request.getSession(true);
 			session.setAttribute("accountInfo", login);
-			return "{\"info\":\"success\",\"page\":\"loginSuccess.action\"}";
+			return "{\"page\":\"index.action\"}";
 		} else
-			return "{\"info\":\"failure\",\"page\":\"login.html\"}";
+			return "{\"page\":\"login.html\"}";
 	}
 	
-	@RequestMapping(value = "loginSuccess", produces = "text/html;charset=UTF-8")
+	
+	@RequestMapping(value = "isLogin", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String isLogin(HttpSession session) {
+		if (session.getAttribute("accountInfo")==null) {
+			return "{\"info\":\"failure\",\"page\":\"login.html\"}";
+		}else {
+			return "{\"info\":\"success\",\"page\":\"index.action\"}";
+		}
+	}
+	
+	@RequestMapping(value = "index", produces = "text/html;charset=UTF-8")
 	public String loginSuccess(HttpSession session) {
-			if(session.getAttribute("accountInfo")!=null)
-				return "index";
-			else 
-				return "login";
+			return "index";
 	}
 
-	@RequestMapping(value = "modify", produces = "text/html;charset=UTF-8")
-	@ResponseBody
-	public String modifyUserInfo(HttpServletRequest request,HttpServletResponse response,HttpSession session) {
-		//跨域问题，需要加上
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		UserInfo userinfo=new UserInfo();
-		userinfo.setuId(((UserInfo) session.getAttribute("accountInfo")).getuId());
-		if(request.getParameter("uName")!=null)
-			userinfo.setuName(request.getParameter("uName"));
-		if(request.getParameter("uPassWord")!=null)
-			userinfo.setuPassword(request.getParameter("uPassWord"));
-		UserInfo modifyProfile = userInfoService.modifyProfile(userinfo);
-		String jsonString = JSON.toJSONString(modifyProfile);
-		System.out.println("modifyUserInfo run");
-		return jsonString;
-	}
+	
 	
 	@RequestMapping(value = "regetsession", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String reGetSession(HttpServletRequest request) {
-		HttpSession session = request.getSession();
-		UserInfo getsession;
-		getsession = (UserInfo) session.getAttribute("accountInfo");
+	public String reGetSession(HttpSession session) {
+		//HttpSession session = request.getSession();
+		UserInfo getsession = (UserInfo) session.getAttribute("accountInfo");
 		String jsonString = JSON.toJSONString(getsession);
 		return jsonString;
 	}
 
+
 	@RequestMapping(value = "logout", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String logOut(HttpServletRequest request,HttpServletResponse response) {
-		//跨域问题，需要加上
-		response.setHeader("Access-Control-Allow-Origin", "*");
-		if (request.getSession(false) != null // 如果没有对应的session，返回null，不会创建session
-				&& request.getSession().getAttribute("accountInfo") != null) {
-			request.getSession().invalidate();
-		}
-		return "{\"info\":\"success\"}";
+	public String logOut(HttpSession session) {
+	
+			session.invalidate();
+			return "{\"page\":\"login.html\"}";
+		
 	}
 
 	// for text
