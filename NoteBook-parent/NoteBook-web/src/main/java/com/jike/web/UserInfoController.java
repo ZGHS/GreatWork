@@ -37,7 +37,7 @@ public class UserInfoController {
 
 	@RequestMapping(value = "modifyAndroid", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String modifyUserInfo(UserInfo userInfo) {
+	public String modifyUserInfoAndroid(UserInfo userInfo) {
 		UserInfo modifyProfile = userInfoService.modifyProfile(userInfo);
 		String jsonString = JSON.toJSONString(modifyProfile);
 		System.out.println("modifyUserInfo run");

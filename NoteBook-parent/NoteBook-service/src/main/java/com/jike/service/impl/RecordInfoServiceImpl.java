@@ -32,7 +32,7 @@ public class RecordInfoServiceImpl implements RecordInfoService {
 			try {
 				recordInfo.setrDate(simpleDateFormat.parse(simpleDateFormat.format(calendar.getTime())));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block				e.printStackTrace();
+				e.printStackTrace();
 			}
 			recordInfoDao.insertSelective(recordInfo);
 			recordInfo = recordInfoDao.selectNewInfo(recordInfo);
@@ -44,35 +44,46 @@ public class RecordInfoServiceImpl implements RecordInfoService {
 	}
 
 	@Override
-	public String deleteRecord(Integer id) {
-		if(recordInfoDao.updated(id)==1)
-			return "true";
-		return "false";
+	public String deleteRecord(RecordInfo recordInfo) {
+		System.out.println(recordInfoDao.updated(recordInfo.getrId()));
+		if (recordInfoDao.updated(recordInfo.getrId()) == 1) {
+			return "{\"info\":\"true\"}";
+		}
+		return "{\"info\":\"false\"}";
 	}
 
+//	@Override
+//	public String updateRecord(RecordInfo recordInfo) {
+//		recordInfo.setrDate(new Date());
+//		if (recordInfo.getrId() == null) {
+//			recordInfoDao.insertSelective(recordInfo);
+//			return "success insert";
+//		} else {
+//			recordInfoDao.updateByPrimaryKeySelective(recordInfo);
+//			return "success save";
+//		}
+//	}
+
 	@Override
-	public String updateRecord(RecordInfo recordInfo) {
-		recordInfo.setrDate(new Date());
-		if(recordInfo.getrId()==null)
+	public List<RecordInfo> getByUid(Integer uId) {
+		List<RecordInfo> rInfos=recordInfoDao.selectByUser(uId);
+		if(rInfos!=null)
 		{
-			recordInfoDao.insertSelective(recordInfo);
-			return "success insert";
-		}
-		else {
-			recordInfoDao.updateByPrimaryKeySelective(recordInfo);
-			return "success save";
+			return rInfos;
+		}else {
+			return null;
 		}
 	}
 
 	@Override
-	public List<RecordInfo> getByUid(Integer uid) {
-		return recordInfoDao.selectByUser(uid);
-	}
-
-	@Override
-	public List<RecordInfo> getByUidAndLabel(Integer uid, Integer label) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<RecordInfo> getByUidAndLabel(RecordInfo recordInfo) {
+		List<RecordInfo> rInfos=recordInfoDao.selectByUserAndKey(recordInfo.getuId(),recordInfo.getrLabel());
+		if(rInfos!=null)
+		{
+			return rInfos;
+		}else {
+			return null;
+		}
 	}
 
 	public RecordInfoMapper getRecordInfoDao() {
