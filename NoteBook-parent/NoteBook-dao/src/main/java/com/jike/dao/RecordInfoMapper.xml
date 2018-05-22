@@ -34,7 +34,16 @@
 		,
 		<include refid="Blob_Column_List" />
 		from t_record_info
-		where u_id=#{uId,jdbcType=INTEGER}
+		where u_id=#{uId,jdbcType=INTEGER} and r_delete='1'
+	</select>
+	<select id="selectByUserAndKey"	resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_record_info
+		where  r_label=#{rLabel,jdbcType=INTEGER} and u_id=#{uId,jdbcType=INTEGER}  and r_Delete='1'
+	
 	</select>
 	<select id="selectNewInfo" parameterType="com.jike.entity.RecordInfo"
 		resultMap="ResultMapWithBLOBs">

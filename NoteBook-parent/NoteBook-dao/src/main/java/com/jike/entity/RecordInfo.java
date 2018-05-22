@@ -15,6 +15,7 @@ public class RecordInfo {
 
     private String rContent;
 
+<<<<<<< HEAD
    
 
 	public RecordInfo(Integer rId, Integer uId, Integer rDelete, Integer rLabel, String rContent) {
@@ -40,6 +41,24 @@ public class RecordInfo {
 					this.rLabel = rLabel;
 					this.rContent = rContent;
 				}
+=======
+
+	public RecordInfo(Integer rId, Integer uId, Integer rDelete, Integer rLabel, String rContent) {
+		this.rId=rId;
+		this.uId=uId;
+		this.rDelete=rDelete;
+		this.rLabel=rLabel;
+		this.rContent=rContent;
+		
+	}
+	public RecordInfo(Integer uId, Integer rDelete, Integer rLabel, String rContent) {
+		this.uId=uId;
+		this.rDelete=rDelete;
+		this.rLabel=rLabel;
+		this.rContent=rContent;
+		
+	}
+>>>>>>> branch 'master' of https://github.com/ZGHS/GreatWork.git
 
 	public Integer getrId() {
         return rId;

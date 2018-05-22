@@ -27,19 +27,16 @@ public class RecordInfoServiceImpl implements RecordInfoService {
 		calendar.get(Calendar.HOUR);
 		calendar.get(Calendar.MINUTE);
 		calendar.get(Calendar.SECOND);
-		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		if(recordInfo.getrId()==null)
-		{
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		if (recordInfo.getrId() == null) {
 			try {
 				recordInfo.setrDate(simpleDateFormat.parse(simpleDateFormat.format(calendar.getTime())));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				// TODO Auto-generated catch block				e.printStackTrace();
 			}
 			recordInfoDao.insertSelective(recordInfo);
-			recordInfo=recordInfoDao.selectNewInfo(recordInfo);
-		}
-		else {
+			recordInfo = recordInfoDao.selectNewInfo(recordInfo);
+		} else {
 			recordInfo.setrDate(new Date());
 			recordInfoDao.updateByPrimaryKeySelective(recordInfo);
 		}

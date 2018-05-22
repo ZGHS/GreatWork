@@ -18,12 +18,29 @@ public class UserInfoController {
 	@Autowired
 	private UserInfoService userInfoService;
 
+	@RequestMapping(value = "registerAndroid", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String registerAccountAndroid(UserInfo userInfo) {
+		UserInfo register = userInfoService.register(userInfo);
+		String jsonString = JSON.toJSONString(register);
+		System.out.println("registerAccount run");
+		return jsonString;
+	}
 	@RequestMapping(value = "register", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String registerAccount(UserInfo userInfo) {
 		UserInfo register = userInfoService.register(userInfo);
 		String jsonString = JSON.toJSONString(register);
 		System.out.println("registerAccount run");
+		return jsonString;
+	}
+
+	@RequestMapping(value = "modifyAndroid", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String modifyUserInfo(UserInfo userInfo) {
+		UserInfo modifyProfile = userInfoService.modifyProfile(userInfo);
+		String jsonString = JSON.toJSONString(modifyProfile);
+		System.out.println("modifyUserInfo run");
 		return jsonString;
 	}
 
@@ -108,7 +125,7 @@ public class UserInfoController {
 			String jsonString = JSON.toJSONString(getsession);
 			return jsonString;
 		} else
-			return "false";
+			return "{\"info\":\"false\"}";
 	}
 
 	public UserInfoService getUserInfoService() {

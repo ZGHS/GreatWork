@@ -17,7 +17,7 @@ public class UserInfo {
     	this.uAccount=uAccount;
     	this.uPassword=uPassword;
 	}
-
+    
 	public UserInfo(Integer uId, String uName, String uAccount, String uPassword) {
 		super();
 		this.uId = uId;
