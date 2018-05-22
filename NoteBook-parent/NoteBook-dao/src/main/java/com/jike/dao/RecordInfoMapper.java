@@ -2,6 +2,8 @@ package com.jike.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.jike.entity.RecordInfo;
 
 public interface RecordInfoMapper {
@@ -24,4 +26,6 @@ public interface RecordInfoMapper {
 	RecordInfo selectNewInfo(RecordInfo recordInfo);
 
 	int updated(Integer id);
+
+	List<RecordInfo> selectByUserAndKey(@Param("uId")Integer uId, @Param("rLabel")Integer rLabel);
 }

@@ -27,19 +27,16 @@ public class RecordInfoServiceImpl implements RecordInfoService {
 		calendar.get(Calendar.HOUR);
 		calendar.get(Calendar.MINUTE);
 		calendar.get(Calendar.SECOND);
-		SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		if(recordInfo.getrId()==null)
-		{
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		if (recordInfo.getrId() == null) {
 			try {
 				recordInfo.setrDate(simpleDateFormat.parse(simpleDateFormat.format(calendar.getTime())));
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			recordInfoDao.insertSelective(recordInfo);
-			recordInfo=recordInfoDao.selectNewInfo(recordInfo);
-		}
-		else {
+			recordInfo = recordInfoDao.selectNewInfo(recordInfo);
+		} else {
 			recordInfo.setrDate(new Date());
 			recordInfoDao.updateByPrimaryKeySelective(recordInfo);
 		}
@@ -47,36 +44,46 @@ public class RecordInfoServiceImpl implements RecordInfoService {
 	}
 
 	@Override
-	public String deleteRecord(Integer id) {
-		if(recordInfoDao.updated(id)==1)
+	public String deleteRecord(RecordInfo recordInfo) {
+		System.out.println(recordInfoDao.updated(recordInfo.getrId()));
+		if (recordInfoDao.updated(recordInfo.getrId()) == 1) {
 			return "true";
+		}
 		return "false";
 	}
 
 	@Override
 	public String updateRecord(RecordInfo recordInfo) {
 		recordInfo.setrDate(new Date());
-		if(recordInfo.getrId()==null)
-		{
+		if (recordInfo.getrId() == null) {
 			recordInfoDao.insertSelective(recordInfo);
 			return "success insert";
-		}
-		else {
+		} else {
 			recordInfoDao.updateByPrimaryKeySelective(recordInfo);
 			return "success save";
 		}
 	}
 
 	@Override
-	public List<RecordInfo> getByUid(Integer uid) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<RecordInfo> getByUid(RecordInfo recordInfo) {
+		List<RecordInfo> rInfos=recordInfoDao.selectByUser(recordInfo.getuId());
+		if(rInfos!=null)
+		{
+			return rInfos;
+		}else {
+			return null;
+		}
 	}
 
 	@Override
-	public List<RecordInfo> getByUidAndLabel(Integer uid, Integer label) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<RecordInfo> getByUidAndLabel(RecordInfo recordInfo) {
+		List<RecordInfo> rInfos=recordInfoDao.selectByUserAndKey(recordInfo.getuId(),recordInfo.getrLabel());
+		if(rInfos!=null)
+		{
+			return rInfos;
+		}else {
+			return null;
+		}
 	}
 
 	public RecordInfoMapper getRecordInfoDao() {

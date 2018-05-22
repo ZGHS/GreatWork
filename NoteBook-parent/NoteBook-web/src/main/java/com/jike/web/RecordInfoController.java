@@ -16,7 +16,7 @@ public class RecordInfoController {
 	@Autowired
 	private RecordInfoService recordInfoService;
 
-	@RequestMapping(value = "saveRecord", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "androidSaveRecord", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String saveRecord(RecordInfo recordInfo) {
 		RecordInfo saveRecord = recordInfoService.saveRecord(recordInfo);
@@ -26,9 +26,9 @@ public class RecordInfoController {
 
 	@RequestMapping(value = "deleteRecord", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String deleteRecord(Integer id) {
+	public String deleteRecord(RecordInfo recordInfo) {
 		System.out.println("hello world");
-		String deleteRecord = recordInfoService.deleteRecord(id);
+		String deleteRecord = recordInfoService.deleteRecord(recordInfo);
 		String jsonString = JSON.toJSONString(deleteRecord);
 		return jsonString;
 	}
@@ -48,16 +48,16 @@ public class RecordInfoController {
 	public String getByUidAndMark(RecordInfo record) {
 		System.out.println("hello world");
 		System.out.println(record);
-		List<RecordInfo> records = recordInfoService.getByUidAndLabel(record.getuId(), record.getrLabel());
+		List<RecordInfo> records = recordInfoService.getByUidAndLabel(record);
 		String jsonString = JSON.toJSONString(records);
 		return jsonString;
 	}
 
 	@RequestMapping(value = "getByUid", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String getByUid(Integer uid) {
+	public String getByUid(RecordInfo recordInfo) {
 		System.out.println("hello world");
-		List<RecordInfo> records = recordInfoService.getByUid(uid);
+		List<RecordInfo> records = recordInfoService.getByUid(recordInfo);
 		String jsonString = JSON.toJSONString(records);
 		return jsonString;
 	}

@@ -7,11 +7,11 @@ import com.jike.entity.RecordInfo;
 public interface RecordInfoService {
 	RecordInfo saveRecord(RecordInfo recordInfo);
 
-	String deleteRecord(Integer id);
+	String deleteRecord(RecordInfo recordInfo);
 
 	String updateRecord(RecordInfo recordInfo);
 
-	List<RecordInfo> getByUid(Integer uid);
+	List<RecordInfo> getByUid(RecordInfo recordInfo);
 
-	List<RecordInfo> getByUidAndLabel(Integer uid, Integer label);
+	List<RecordInfo> getByUidAndLabel(RecordInfo recordInfo);
 }
