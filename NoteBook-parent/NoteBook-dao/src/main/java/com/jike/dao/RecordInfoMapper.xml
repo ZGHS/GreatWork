@@ -54,6 +54,19 @@
 		from t_record_info
 		where u_id=#{uId,jdbcType=INTEGER} and UNIX_TIMESTAMP(r_date)=UNIX_TIMESTAMP(#{rDate,jdbcType=TIMESTAMP})
 	</select>
+	
+	<!-- 这个是关于推送的那个你不用管 -->
+	<select id="selectNewestOne" parameterType="com.jike.entity.UserInfo"
+		resultMap="ResultMapWithBLOBs">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from t_record_info
+		where u_id=#{uId,jdbcType=INTEGER}
+		order by r_date desc 
+	</select>
+	
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from
 		t_record_info

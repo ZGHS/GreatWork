@@ -25,6 +25,22 @@
 			 var allRecords;
 			$(function(){
 				
+				
+				$.ajax({  
+			        type : 'post',  
+			        url : "http://127.0.0.1:8080/NoteBook-web/sendNews.action",  
+			        dataType :'json',  
+			        async: true,  
+			        success : function(data) { 
+			        	alert(data.info);
+			        }
+			    });  
+				
+				
+				
+				
+				
+				
 				$.ajax({  
 			        type : 'post',  
 			        url : "http://127.0.0.1:8080/NoteBook-web/isLogin.action",  

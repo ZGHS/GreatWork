@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.jike.dao.RecordInfoMapper;
 import com.jike.entity.RecordInfo;
+import com.jike.entity.UserInfo;
 import com.jike.service.RecordInfoService;
 
 @Service("recordInfoService")
@@ -52,36 +53,34 @@ public class RecordInfoServiceImpl implements RecordInfoService {
 		return "{\"info\":\"false\"}";
 	}
 
-//	@Override
-//	public String updateRecord(RecordInfo recordInfo) {
-//		recordInfo.setrDate(new Date());
-//		if (recordInfo.getrId() == null) {
-//			recordInfoDao.insertSelective(recordInfo);
-//			return "success insert";
-//		} else {
-//			recordInfoDao.updateByPrimaryKeySelective(recordInfo);
-//			return "success save";
-//		}
-//	}
+	// @Override
+	// public String updateRecord(RecordInfo recordInfo) {
+	// recordInfo.setrDate(new Date());
+	// if (recordInfo.getrId() == null) {
+	// recordInfoDao.insertSelective(recordInfo);
+	// return "success insert";
+	// } else {
+	// recordInfoDao.updateByPrimaryKeySelective(recordInfo);
+	// return "success save";
+	// }
+	// }
 
 	@Override
 	public List<RecordInfo> getByUid(Integer uId) {
-		List<RecordInfo> rInfos=recordInfoDao.selectByUser(uId);
-		if(rInfos!=null)
-		{
+		List<RecordInfo> rInfos = recordInfoDao.selectByUser(uId);
+		if (rInfos != null) {
 			return rInfos;
-		}else {
+		} else {
 			return null;
 		}
 	}
 
 	@Override
 	public List<RecordInfo> getByUidAndLabel(RecordInfo recordInfo) {
-		List<RecordInfo> rInfos=recordInfoDao.selectByUserAndKey(recordInfo.getuId(),recordInfo.getrLabel());
-		if(rInfos!=null)
-		{
+		List<RecordInfo> rInfos = recordInfoDao.selectByUserAndKey(recordInfo.getuId(), recordInfo.getrLabel());
+		if (rInfos != null) {
 			return rInfos;
-		}else {
+		} else {
 			return null;
 		}
 	}
@@ -92,6 +91,11 @@ public class RecordInfoServiceImpl implements RecordInfoService {
 
 	public void setRecordInfoDao(RecordInfoMapper recordInfoDao) {
 		this.recordInfoDao = recordInfoDao;
+	}
+
+	@Override
+	public List<RecordInfo> selectNewestOne(UserInfo userInfo) {
+		return recordInfoDao.selectNewestOne(userInfo);
 	}
 
 }
