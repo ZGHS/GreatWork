@@ -42,7 +42,7 @@ public class RecordInfoServiceImpl implements RecordInfoService {
 		}
 		return recordInfo;
 	}
-	
+
 	@Override
 	public String deleteRecord(RecordInfo recordInfo) {
 		System.out.println(recordInfoDao.updated(recordInfo.getrId()));

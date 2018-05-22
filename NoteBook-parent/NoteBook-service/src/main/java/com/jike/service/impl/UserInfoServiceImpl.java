@@ -13,7 +13,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public UserInfoMapper userInfoDao;
 	@Autowired
 	public RecordInfoMapper recordInfoDao;
-	
+
 	@Override
 	public UserInfo login(UserInfo userInfo) {
 		UserInfo realUserInfo = userInfoDao.selectByAccount(userInfo.getuAccount());

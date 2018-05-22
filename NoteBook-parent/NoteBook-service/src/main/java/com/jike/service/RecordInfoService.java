@@ -12,6 +12,6 @@ public interface RecordInfoService {
 	//String updateRecord(RecordInfo recordInfo);
 	
 	List<RecordInfo> getByUid(Integer uId);
-
+	
 	List<RecordInfo> getByUidAndLabel(RecordInfo recordInfo);
 }
