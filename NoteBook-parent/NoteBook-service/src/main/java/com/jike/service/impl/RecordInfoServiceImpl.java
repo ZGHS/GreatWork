@@ -69,8 +69,7 @@ public class RecordInfoServiceImpl implements RecordInfoService {
 
 	@Override
 	public List<RecordInfo> getByUid(Integer uid) {
-		// TODO Auto-generated method stub
-		return null;
+		return recordInfoDao.selectByUser(uid);
 	}
 
 	@Override

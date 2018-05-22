@@ -17,9 +17,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Override
 	public UserInfo login(UserInfo userInfo) {
 		UserInfo realUserInfo = userInfoDao.selectByAccount(userInfo.getuAccount());
-		if (realUserInfo == null)
+		if (realUserInfo == null) {
 			return null;
-		else if (userInfo.getuPassword().equals(realUserInfo.getuPassword())) {
+		} else if (userInfo.getuPassword().equals(realUserInfo.getuPassword())) {
 			realUserInfo.setuRecordInfos(recordInfoDao.selectByUser(realUserInfo.getuId()));
 
 			return realUserInfo;

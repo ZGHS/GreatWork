@@ -15,7 +15,33 @@ public class RecordInfo {
 
     private String rContent;
 
-    public Integer getrId() {
+   
+
+	public RecordInfo(Integer rId, Integer uId, Integer rDelete, Integer rLabel, String rContent) {
+		super();
+		this.rId = rId;
+		this.uId = uId;
+		this.rDelete = rDelete;
+		this.rLabel = rLabel;
+		this.rContent = rContent;
+	}
+
+	public RecordInfo() {
+	}
+
+
+	
+	
+	
+	public RecordInfo(Integer uId, Integer rDelete, Integer rLabel, java.lang.String rContent) {
+					super();
+					this.uId = uId;
+					this.rDelete = rDelete;
+					this.rLabel = rLabel;
+					this.rContent = rContent;
+				}
+
+	public Integer getrId() {
         return rId;
     }
 

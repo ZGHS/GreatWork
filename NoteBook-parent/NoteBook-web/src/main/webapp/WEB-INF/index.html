@@ -18,29 +18,47 @@
 		
 		<script type="text/javascript">
 			
-			//{"uAccount":"13838384380","uId":4,"uName":"linainai38","uPassword":"123456","uRecordInfos":[{"rContent":"asdfsf","rDelete":1,"rId":5,"rLabel":2,"uId":4},{"rContent":"asdfsf","rDelete":1,"rId":6,"rLabel":2,"uId":4},{"rContent":"asdfsf","rDelete":1,"rId":7,"rLabel":2,"uId":4},{"rContent":"asdfsf","rDelete":1,"rId":8,"rLabel":2,"uId":4}]}
 
 			var currentRid;
 			
-			 //var   myData={"uAccount":"13838384380","uId":4,"uName":"linainai38","uPassword":"123456","uRecordInfos":[{"rContent":"今天是否，好条件看到房价是否考虑","rDelete":1,"rId":5,"rLabel":1,"uId":4},{"rContent":"范德萨发地方萨芬撒发生的发生过任何他仍然提供的","rDelete":1,"rId":6,"rLabel":0,"uId":4},{"rContent":"防守打法是范德萨发生发斯蒂芬","rDelete":1,"rId":7,"rLabel":2,"uId":4},{"rContent":"asdfsf","rDelete":1,"rId":8,"rLabel":2,"uId":4}]};
-			var   myData;
+			var myData;
+			 var allRecords;
 			$(function(){
 				
-				
+				$.ajax({  
+			        type : 'post',  
+			        url : "http://127.0.0.1:8080/NoteBook-web/isLogin.action",  
+			        dataType :'json',  
+			        async: true,  
+			        success : function(data) { 
+			        	if(data.info=='failure'){
+		          			location.href="http://127.0.0.1:8080/NoteBook-web/"+data.page;
+			        }
+			        }
+			    });  
 				
 				
 				$('#editBtn').attr('disabled','disabled');
+				$('#deleteBtn').attr('disabled','disabled');
 				
 				
-				
-                  var url = "http://127.0.0.1:8080/NoteBook-web/regetsession.action";
                   
-                  $.post(url,
-				          function(data){
-				          myData=data;
-				          }, "json");
-
-
+                  //$.post(url,
+				    //      function(data){
+				      //    myData=data;
+				        //  alert("hello  "+myData.uRecordInfos[0].rContent);
+				          //}, "json");
+$.ajax({  
+        type : 'post',  
+        url : "http://127.0.0.1:8080/NoteBook-web/regetsession.action",  
+        dataType :'json',  
+        async: false,  
+        success : function(data) {  
+        	myData=data;
+        },    
+        error : function() {  
+        }  
+    });  
 
 
 
@@ -52,7 +70,7 @@
                //alert("uName:"+myData.uName);
                 //alert("uPassword:"+myData.uPassword);
                 
-                var allRecords=myData.uRecordInfos;
+                allRecords=myData.uRecordInfos;
                 
                 
                 var showRecord=function(i){
@@ -94,59 +112,37 @@
                 	$('#radio2').removeAttr('checked');
                 	$('#radio3').removeAttr('checked');
                 	$("#radio"+a).attr('checked','checked');
-                	
-                	
-                		$('#radio0').attr('disabled','disabled');
+                    $('#radio0').attr('disabled','disabled');
 					$('#radio1').attr('disabled','disabled');
 					$('#radio2').attr('disabled','disabled');
 					$('#radio3').attr('disabled','disabled');
-					
-                	
                 }
-                
-                
-                
-                
-                
                 for (var i = 0; i < allRecords.length; i++) {
                 	var record=allRecords[i];
-                	// alert("rContent:"+record.rContent);
-                	  //alert("rDelete:"+record.rDelete);
-                	   //alert("rId:"+record.rId);
-                	    //alert("rLabel:"+record.rLabel);
-                	     //alert("uId:"+record.uId);
-                	     
-                	   //  if(){
-                	     	//alert('i========'+i);
-                	     //	$("#noLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
-                	     	// $("#"+i).click( function () { showRecord($(this).attr('id')) });
-                	     //}
-                	     
-                	     
-                	     switch(record.rLabel)
-						{
-						case 0:
-						$("#noLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
-						  break;
-						case 1:
-						$("#studyLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
-						  break;
-						  case 2:
-						$("#workLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
-						  break;
-						  case 3:
-						$("#lifeLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
-						  break;
-						}
-						 $("#"+i).click( function () {
-						 	
-						 	
-						 	
-						 
-					 currentRid=record.rId; 
-						      showRecord($(this).attr('id'));
-					
-						 });
+                	if(record.rDelete==1){
+                		  switch(record.rLabel)
+  						{
+  						case 0:
+  						$("#noLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
+  						  break;
+  						case 1:
+  						$("#studyLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
+  						  break;
+  						  case 2:
+  						$("#workLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
+  						  break;
+  						  case 3:
+  						$("#lifeLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rContent+"</button>");
+  						  break;
+  						}
+  						 $("#"+i).click( function () {
+  					          currentRid=allRecords[$(this).attr('id')].rId; 
+  					         // alert("currentRid:====="+currentRid);
+  						      showRecord($(this).attr('id'));
+  						    $('#deleteBtn').removeAttr('disabled');
+  						 });
+                	}
+                	   
                 	
                 }
                 
@@ -165,6 +161,14 @@
 
 	<body>
 		<div class="container-fluid">
+		
+		
+		<div id="tipDiv" class="alert alert-success alert-dismissable" hidden="hidden">
+                <button type="button" class="close" data-dismiss = "alert" aria-hidden="false">×</button>  
+            </div>  
+            
+            
+            
 			<div class="row">
 				<div class="col-2">
 
@@ -258,7 +262,12 @@
 						<h2 id="mainHeadTitle" class="card-title text-center">随心记</h6>
 					</div>
 					<div id="mainBody" class="card-body bg-primary">
-						
+						<button id="deleteBtn" onclick="deleteRecord()" class="btn btn-danger" >
+ 删除
+</button>	
+<button id="tipBtn"  class="btn btn-info" >
+ 分类:
+</button>	
 						<label class="radio-inline" id="radioWrapper0">
   <input type="radio" name="label" id="radio0" value="0"  checked="checked"> 未标签
 </label>
@@ -274,7 +283,7 @@
 						<label class="radio-inline" id="radioWrapper3">
   <input type="radio" name="label" id="radio3" value="3" > 生活
 </label>
-						
+					
 						
 
 
@@ -370,6 +379,21 @@
 </div>
 
 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 			<script>
 				
 				
@@ -418,7 +442,8 @@
 					$('#radioWrapper1').removeAttr("hidden");
 					$('#radioWrapper2').removeAttr("hidden");
 					$('#radioWrapper3').removeAttr("hidden");
-					
+					$('#deleteBtn').removeAttr("hidden");
+					$('#tipBtn').removeAttr("hidden");
 					
 					
 					saveRecord();
@@ -449,6 +474,8 @@
 					$('#radioWrapper1').removeAttr("hidden");
 					$('#radioWrapper2').removeAttr("hidden");
 					$('#radioWrapper3').removeAttr("hidden");
+					$('#deleteBtn').removeAttr("hidden");
+					$('#tipBtn').removeAttr("hidden");
 				};
 				var checkProfile=function(){
 				
@@ -482,17 +509,28 @@
 					var newRLabel=$(":input:checked").attr("value");
 					var newRContent=$('#summernote').summernote('code');
 					$('#summernote').summernote('destroy');
-					alert(newRContent);
-					alert(currentRid+"="+newRLabel+"="+newRContent);
-					var url = "http://127.0.0.1:8080/MyTest/test.action";
-					 $.post(url, { "rId": currentRid,"rLabel":newRLabel, "rContent":newRContent},
+					//alert(currentRid+"="+newRLabel+"="+newRContent);
+					var url = "http://127.0.0.1:8080/NoteBook-web/saveRecord.action";
+					 $.post(url, { "rId": currentRid,"rLabel":newRLabel, "rContent":newRContent,"rDelete":"1"},
 				          function(data){
-				          
-				          }, "text");
-					
-					// location.reload() ;
-					
+						 $("#tipDiv").removeAttr("hidden");
+						 $("#tipDiv").html("保存成功");
+						 location.href="http://127.0.0.1:8080/NoteBook-web/"+data.page;
+				          }, "json");
 				}
+			function deleteRecord(){
+				var url = "http://127.0.0.1:8080/NoteBook-web/deleteRecord.action";
+				 $.post(url, { "rId": currentRid},
+			          function(data){
+					 $("#tipDiv").removeAttr("hidden");
+					 $("#tipDiv").html("删除成功");
+					 location.href="http://127.0.0.1:8080/NoteBook-web/"+data.page;
+			          }, "json");
+			}
+				
+				
+				
+				
 				var showProfile=function(){
 					
 					$('#profileBtn').removeAttr('data-toggle');
@@ -506,6 +544,8 @@
 					$('#radioWrapper1').attr('hidden','hidden');
 					$('#radioWrapper2').attr('hidden','hidden');
 					$('#radioWrapper3').attr('hidden','hidden');
+					$('#deleteBtn').attr('hidden','hidden');
+					$('#tipBtn').attr('hidden','hidden');
 					
 					$('#profileBtn').attr('disabled','disabled');
 					$('#editBtn').removeAttr('disabled');
@@ -544,7 +584,7 @@
           		//alert(data);
           		if(data=='failure'){
           			alert("修改失败");
-          			location.reload();
+          			//location.reload();
           		}else{
           			alert("修改成功");
           		}
@@ -565,13 +605,13 @@
 				
 				function exit(){
 					$.post(
-						"http://127.0.0.1:8080/MyTest/test.action",
-						function(){
-							alert("退出登录成功！");
+						"http://127.0.0.1:8080/NoteBook-web/logout.action",
+						function(data){
+							//alert("退出登录成功！");
+								location.href="http://127.0.0.1:8080/NoteBook-web/"+data.page;
 						},
+						"json"
 						);
-						
-						location.reload();
 				}
 			</script>
 	</body>

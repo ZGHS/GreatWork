@@ -68,4 +68,11 @@ public class UserInfo {
     public void setuPassword(String uPassword) {
         this.uPassword = uPassword;
     }
+
+	@Override
+	public String toString() {
+		return "UserInfo [uId=" + uId + ", uName=" + uName + ", uAccount=" + uAccount + ", uPassword=" + uPassword
+				+ ", uRecordInfos=" + uRecordInfos + "]";
+	}
+    
 }
