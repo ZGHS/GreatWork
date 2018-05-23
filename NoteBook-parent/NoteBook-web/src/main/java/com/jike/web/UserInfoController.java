@@ -129,17 +129,19 @@ public class UserInfoController {
 
 	@RequestMapping(value = "loginandroid", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String loginAndroid(UserInfo userInfo, HttpServletRequest request) {
+	public String loginAndroid(UserInfo userInfo, HttpSession session) {
 		UserInfo login = userInfoService.login(userInfo);
+		System.out.println("张港华++++++++Run"+userInfo.toString());
+		System.out.println("张港华++++++++Run"+login.toString());
+		
 		if (login != null) {
-			HttpSession session = request.getSession(true);
 			session.setAttribute("accountInfo", login);
-			UserInfo getsession;
-			getsession = (UserInfo) session.getAttribute("accountInfo");
-			String jsonString = JSON.toJSONString(getsession);
+			String jsonString = JSON.toJSONString(login);
 			return jsonString;
 		} else
-			return "{\"info\":\"false\"}";
+			return "{\"page\":\"login.html\"}";
+		
+		
 	}
 
 	public UserInfoService getUserInfoService() {

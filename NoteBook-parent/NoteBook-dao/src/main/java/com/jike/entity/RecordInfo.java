@@ -7,7 +7,8 @@ public class RecordInfo {
 
     private Integer uId;
 
-    private Date rDate;
+   // private Date rDate;
+     private String rDate;
 
     private Integer rDelete;
 
@@ -53,12 +54,19 @@ public class RecordInfo {
         this.uId = uId;
     }
 
-    public Date getrDate() {
-        return rDate;
+//    public Date getrDate() {
+//        return rDate;
+//    }
+//
+//    public void setrDate(Date rDate) {
+//        this.rDate = rDate;
+//    }
+    public String getrDate() {
+    	return rDate;
     }
-
-    public void setrDate(Date rDate) {
-        this.rDate = rDate;
+    
+    public void setrDate(String rDate) {
+    	this.rDate = rDate;
     }
 
     public Integer getrDelete() {
