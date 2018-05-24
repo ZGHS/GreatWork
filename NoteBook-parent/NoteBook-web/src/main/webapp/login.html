@@ -6,26 +6,26 @@
 		<meta charset="utf-8">
 		<title>随心记</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="/NoteBook-web/assets/js/jquery-1.8.2.min.js"></script>
-		<script src="/NoteBook-web/assets/js/supersized.3.2.7.min.js"></script>
-		<script src="/NoteBook-web/assets/js/supersized-init.js"></script>
-		<script src="/NoteBook-web/assets/js/scripts.js"></script>
+		<script src="http://127.0.0.1:8080/assets/js/jquery-1.8.2.min.js"></script>
+		<script src="http://127.0.0.1:8080/assets/js/supersized.3.2.7.min.js"></script>
+		<script src="http://127.0.0.1:8080/assets/js/supersized-init.js"></script>
+		<script src="http://127.0.0.1:8080/assets/js/scripts.js"></script>
 		<!-- CSS -->
 		<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>
-		<link rel="stylesheet" href="/NoteBook-web/assets/css/reset.css">
-		<link rel="stylesheet" href="/NoteBook-web/assets/css/supersized.css">
-		<link rel="stylesheet" href="/NoteBook-web/assets/css/style.css">
+		<link rel="stylesheet" href="http://127.0.0.1:8080/assets/css/reset.css">
+		<link rel="stylesheet" href="http://127.0.0.1:8080/assets/css/supersized.css">
+		<link rel="stylesheet" href="http://127.0.0.1:8080/assets/css/style.css">
 
 		<script type="text/javascript">
 		jQuery(function(){
 				$.ajax({  
 			        type : 'post',  
-			        url : "http://127.0.0.1:8080/NoteBook-web/isLogin.action",  
+			        url : "http://127.0.0.1:8080/isLogin.action",  
 			        dataType :'json',  
 			        async: true,  
 			        success : function(data) { 
 			        	if(data.info=='success'){
-		          			location.href="http://127.0.0.1:8080/NoteBook-web/"+data.page;
+		          			location.href="http://127.0.0.1:8080/"+data.page;
 			        }
 			        }
 			    });     	
@@ -74,10 +74,10 @@
           	var account=$("#account").val();
           	var pwd=$("#pwd").val();
           	$.post(
-            "http://127.0.0.1:8080/NoteBook-web/login.action",
+            "http://127.0.0.1:8080/login.action",
           	{'uAccount':account,'uPassword':pwd},
           	function(data){
-          			location.href="http://127.0.0.1:8080/NoteBook-web/"+data.page;
+          			location.href="http://127.0.0.1:8080/"+data.page;
           	},
           	'json'
           	);

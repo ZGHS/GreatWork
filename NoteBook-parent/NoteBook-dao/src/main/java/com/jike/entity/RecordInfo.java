@@ -92,4 +92,11 @@ public class RecordInfo {
     public void setrContent(String rContent) {
         this.rContent = rContent;
     }
+
+	@Override
+	public String toString() {
+		return "RecordInfo [rId=" + rId + ", uId=" + uId + ", rDate=" + rDate + ", rDelete=" + rDelete + ", rLabel="
+				+ rLabel + ", rContent=" + rContent + "]";
+	}
+    
 }

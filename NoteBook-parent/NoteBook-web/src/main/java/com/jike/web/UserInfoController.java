@@ -132,14 +132,15 @@ public class UserInfoController {
 	public String loginAndroid(UserInfo userInfo, HttpSession session) {
 		UserInfo login = userInfoService.login(userInfo);
 		System.out.println("张港华++++++++Run"+userInfo.toString());
-		System.out.println("张港华++++++++Run"+login.toString());
 		
 		if (login != null) {
-			session.setAttribute("accountInfo", login);
+			session.setAttribute("accountInfoAndroid", login);
+			Object attribute = session.getAttribute("accountInfoAndroid");
+			System.out.println("accountInfoAndroid Run:->>>>>>>>>>>>>>"+attribute.toString());
 			String jsonString = JSON.toJSONString(login);
 			return jsonString;
 		} else
-			return "{\"page\":\"login.html\"}";
+			return "";
 		
 		
 	}

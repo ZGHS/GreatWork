@@ -31,7 +31,12 @@
 			<property name="prefix" value="/WEB-INF/"/>
 			<property name="suffix" value=".html"/>
 		</bean>
-		
-		<bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
-		</bean>
+		<!-- 需要文件上传功能时，启用以下配置 -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!--设置上传最大尺寸为50MB -->
+		<property name="maxUploadSizePerFile" value="52428800" />
+		<!--请求的编码格式 -->
+		<property name="defaultEncoding" value="UTF-8" />
+	</bean>
 </beans>
