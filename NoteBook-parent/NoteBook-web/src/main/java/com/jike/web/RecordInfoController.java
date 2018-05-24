@@ -112,27 +112,16 @@ public class RecordInfoController {
 
 	@RequestMapping(value = "androidSaveRecord", produces = "text/html;charset=UTF-8")
 	@ResponseBody
-	public String saveRecordAndroid(RecordInfo recordInfo,HttpSession session) {
-		System.out.println("++++++++++++++++"+recordInfo.toString());
-		//UserInfo loginUser = (UserInfo) session.getAttribute("accountInfoAndroid");
-		
-		
-//		UserInfo loginUser =(UserInfo) session.getAttribute("accountInfoAndroid");
-//		System.out.println("->>>>>>>"+loginUser);
-//		if (loginUser==null) {
-//			return "";
-//		}else {
-//			recordInfo.setuId(loginUser.getuId());
-			RecordInfo saveRecord = recordInfoService.saveRecord(recordInfo);
-			System.out.println("-----------------"+saveRecord.toString());
-			String jsonString = JSON.toJSONString(saveRecord);
-			return jsonString;
-//		}
+	public String saveRecordAndroid(RecordInfo recordInfo) {
+		RecordInfo saveRecord = recordInfoService.saveRecord(recordInfo);
+		String jsonString = JSON.toJSONString(saveRecord);
+		return jsonString;
 	}
 
 	@RequestMapping(value = "androiddeleteRecord", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String androiddeleteRecord(RecordInfo recordInfo) {
+		System.out.println("hello world");
 		String deleteRecord = recordInfoService.deleteRecord(recordInfo);
 		String jsonString = JSON.toJSONString(deleteRecord);
 		return jsonString;
