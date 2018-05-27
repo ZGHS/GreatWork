@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>随心记</title>
-		<script type="text/javascript" src="http://127.0.0.1:8080/js/jquery-3.3.1.js" ></script>
+		<script type="text/javascript" src="/js/jquery-3.3.1.js" ></script>
 		<!--<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
 		<script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 		<script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
@@ -13,7 +13,7 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
-		<script type="text/javascript" src="http://127.0.0.1:8080/js/summernote-zh-CN.js"></script>
+		<script type="text/javascript" src="/js/summernote-zh-CN.js"></script>
 		
 		
 		<script type="text/javascript">
@@ -22,19 +22,21 @@
 			var currentRid;
 			
 			var myData;
+			
+			var JK_URL="http://192.168.1.102:8080/";
 			 var allRecords;
 			$(function(){
 				
 				
-				$.ajax({  
-			        type : 'post',  
-			        url : "http://127.0.0.1:8080/sendNews.action",  
-			        dataType :'json',  
-			        async: true,  
-			        success : function(data) { 
+				//$.ajax({  
+			      //  type : 'post',  
+			        //url : JK_URL+"sendNews.action",  
+			        //dataType :'json',  
+			        //async: true,  
+			        //success : function(data) { 
 			        	//alert(data.info);
-			        }
-			    });  
+			       // }
+			    //});  
 				
 				
 				
@@ -43,12 +45,12 @@
 				
 				$.ajax({  
 			        type : 'post',  
-			        url : "http://127.0.0.1:8080/isLogin.action",  
+			        url : JK_URL+"isLogin.action",  
 			        dataType :'json',  
 			        async: true,  
 			        success : function(data) { 
 			        	if(data.info=='failure'){
-		          			location.href="http://127.0.0.1:8080/"+data.page;
+		          			location.href=JK_URL+data.page;
 			        }
 			        }
 			    });  
@@ -66,7 +68,7 @@
 				          //}, "json");
 $.ajax({  
         type : 'post',  
-        url : "http://127.0.0.1:8080/regetsession.action",  
+        url : JK_URL+"regetsession.action",  
         dataType :'json',  
         async: false,  
         success : function(data) {  
@@ -419,12 +421,13 @@ $.ajax({
 				$.ajax({
 					data: data,
 					type: "POST",
-					url: "http://localhost:8080/uploadImg.action",
+					url: JK_URL+"uploadImg.action",
 					cache: false,
 					contentType: false,
 					processData: false,
 					success: function(url) {
-						$("#summernote").summernote('insertImage',"http://localhost:8080/resources/upload/"+url, 'image name'); // the insertImage API  
+						//$("#summernote").summernote('insertImage',"http://localhost:8080/resources/upload/"+url, 'image name'); // the insertImage API  
+						$("#summernote").summernote('insertImage',JK_URL+"resources/upload/"+url, 'image name'); // the insertImage API  
 					}
 				});
 			}
@@ -552,21 +555,21 @@ $.ajax({
 					var newRContent=$('#summernote').summernote('code');
 					$('#summernote').summernote('destroy');
 					//alert(currentRid+"="+newRLabel+"="+newRContent);
-					var url = "http://127.0.0.1:8080/saveRecord.action";
+					var url = JK_URL+"saveRecord.action";
 					 $.post(url, { "rId": currentRid,"rLabel":newRLabel, "rContent":newRContent,"rDelete":"1"},
 				          function(data){
 						 $("#tipDiv").removeAttr("hidden");
 						 $("#tipDiv").html("保存成功");
-						 location.href="http://127.0.0.1:8080/"+data.page;
+						 location.href=JK_URL+data.page;
 				          }, "json");
 				}
 			function deleteRecord(){
-				var url = "http://127.0.0.1:8080/deleteRecord.action";
+				var url = JK_URL+"deleteRecord.action";
 				 $.post(url, { "rId": currentRid},
 			          function(data){
 					 $("#tipDiv").removeAttr("hidden");
 					 $("#tipDiv").html("删除成功");
-					 location.href="http://127.0.0.1:8080/"+data.page;
+					 location.href=JK_URL+data.page;
 			          }, "json");
 			}
 				
@@ -620,10 +623,10 @@ $.ajax({
 					var name=$("#inputName").val();
 					var pwd=$("#inputPassword").val();
 					$.post(
-            "http://127.0.0.1:8080/modify.action",
+							JK_URL+"modify.action",
           	{'uName':name,'uPassword':pwd},
           	function(data){
-          		location.href="http://127.0.0.1:8080/"+data.page;
+          		location.href=JK_URL+data.page;
           	},
           	'json'
           	);
@@ -641,9 +644,9 @@ $.ajax({
 				
 				function exit(){
 					$.post(
-						"http://127.0.0.1:8080/logout.action",
+							JK_URL+"logout.action",
 						function(data){
-								location.href="http://127.0.0.1:8080/"+data.page;
+								location.href=JK_URL+data.page;
 						},
 						"json"
 						);

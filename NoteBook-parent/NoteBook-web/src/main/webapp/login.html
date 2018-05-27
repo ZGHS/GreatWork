@@ -6,26 +6,28 @@
 		<meta charset="utf-8">
 		<title>随心记</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<script src="http://127.0.0.1:8080/assets/js/jquery-1.8.2.min.js"></script>
-		<script src="http://127.0.0.1:8080/assets/js/supersized.3.2.7.min.js"></script>
-		<script src="http://127.0.0.1:8080/assets/js/supersized-init.js"></script>
-		<script src="http://127.0.0.1:8080/assets/js/scripts.js"></script>
+		<script src="/assets/js/jquery-1.8.2.min.js"></script>
+		<script src="/assets/js/supersized.3.2.7.min.js"></script>
+		<script src="/assets/js/supersized-init.js"></script>
+		<script src="/assets/js/scripts.js"></script>
 		<!-- CSS -->
 		<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=PT+Sans:400,700'>
-		<link rel="stylesheet" href="http://127.0.0.1:8080/assets/css/reset.css">
-		<link rel="stylesheet" href="http://127.0.0.1:8080/assets/css/supersized.css">
-		<link rel="stylesheet" href="http://127.0.0.1:8080/assets/css/style.css">
+		<link rel="stylesheet" href="/assets/css/reset.css">
+		<link rel="stylesheet" href="/assets/css/supersized.css">
+		<link rel="stylesheet" href="/assets/css/style.css">
 
 		<script type="text/javascript">
+		
+		var JK_URL="http://192.168.1.102:8080/";
 		jQuery(function(){
 				$.ajax({  
 			        type : 'post',  
-			        url : "http://127.0.0.1:8080/isLogin.action",  
+			        url : JK_URL+"isLogin.action",  
 			        dataType :'json',  
 			        async: true,  
 			        success : function(data) { 
 			        	if(data.info=='success'){
-		          			location.href="http://127.0.0.1:8080/"+data.page;
+		          			location.href=JK_URL+data.page;
 			        }
 			        }
 			    });     	
@@ -74,10 +76,10 @@
           	var account=$("#account").val();
           	var pwd=$("#pwd").val();
           	$.post(
-            "http://127.0.0.1:8080/login.action",
+          			JK_URL+"login.action",
           	{'uAccount':account,'uPassword':pwd},
           	function(data){
-          			location.href="http://127.0.0.1:8080/"+data.page;
+          			location.href=JK_URL+data.page;
           	},
           	'json'
           	);
