@@ -30,6 +30,7 @@ public class RecordInfoServiceImpl implements RecordInfoService {
 		calendar.get(Calendar.SECOND);
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		if (recordInfo.getrId() == null) {
+
 //			try {
 //				recordInfo.setrDate(simpleDateFormat.parse(simpleDateFormat.format(calendar.getTime())));
 				recordInfo.setrDate(simpleDateFormat.format(calendar.getTime()));
@@ -37,6 +38,7 @@ public class RecordInfoServiceImpl implements RecordInfoService {
 //			catch (ParseException e) {
 //				e.printStackTrace();
 //			}
+
 			recordInfoDao.insertSelective(recordInfo);
 			recordInfo = recordInfoDao.selectNewInfo(recordInfo);
 		} else {
@@ -56,6 +58,7 @@ public class RecordInfoServiceImpl implements RecordInfoService {
 		return "{\"info\":\"false\"}";
 	}
 
+
 	// @Override
 	// public String updateRecord(RecordInfo recordInfo) {
 	// recordInfo.setrDate(new Date());
@@ -68,22 +71,42 @@ public class RecordInfoServiceImpl implements RecordInfoService {
 	// }
 	// }
 
+//	@Override
+//	public String updateRecord(RecordInfo recordInfo) {
+//		recordInfo.setrDate(new Date());
+//		if (recordInfo.getrId() == null) {
+//			recordInfoDao.insertSelective(recordInfo);
+//			return "success insert";
+//		} else {
+//			recordInfoDao.updateByPrimaryKeySelective(recordInfo);
+//			return "success save";
+//		}
+//	}
+
+
 	@Override
 	public List<RecordInfo> getByUid(Integer uId) {
-		List<RecordInfo> rInfos = recordInfoDao.selectByUser(uId);
-		if (rInfos != null) {
+
+
+		List<RecordInfo> rInfos=recordInfoDao.selectByUser(uId);
+		if(rInfos!=null)
+		{
 			return rInfos;
-		} else {
+		}else {
+
 			return null;
 		}
 	}
 
 	@Override
 	public List<RecordInfo> getByUidAndLabel(RecordInfo recordInfo) {
-		List<RecordInfo> rInfos = recordInfoDao.selectByUserAndKey(recordInfo.getuId(), recordInfo.getrLabel());
-		if (rInfos != null) {
+
+		List<RecordInfo> rInfos=recordInfoDao.selectByUserAndKey(recordInfo.getuId(),recordInfo.getrLabel());
+		if(rInfos!=null)
+		{
 			return rInfos;
-		} else {
+		}else {
+
 			return null;
 		}
 	}
