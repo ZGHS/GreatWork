@@ -11,9 +11,9 @@ public interface RecordInfoService {
 	String deleteRecord(RecordInfo recordInfo);
 
 	//String updateRecord(RecordInfo recordInfo);
-
+	
 	List<RecordInfo> getByUid(Integer uId);
-
+	
 	List<RecordInfo> getByUidAndLabel(RecordInfo recordInfo);
 	
 	List<RecordInfo> selectNewestOne(UserInfo userInfo);
