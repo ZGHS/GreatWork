@@ -42,11 +42,18 @@ public class NewFunctionController {
 		//
 		// String keyContent = selectNewestOne.get(0).getrContent();
 		// String text = "北京是一家高科技公司";
-		String text = byUid.get(byUid.size() - 1).getrContent();
-		// String analyseResult = AnalyseUtil.getAnalyseResult(text);
-		// System.out.println("希望可以出来结果+++++++++++++++++"+analyseResult);
+		String text = null;
+		if (byUid.size() > 0) {
+
+			text = byUid.get(byUid.size() - 1).getrContent();
+		}
 		List<String> news = newFunctionService.getNews(text);
-		return news.get(0);
+		if (news != null && news.size() > 0) {
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"+news);
+			return news.get(0);
+		} else {
+			return null;
+		}
 	}
 
 	public RecordInfoService getRecordInfoService() {

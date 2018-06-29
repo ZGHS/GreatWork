@@ -86,54 +86,5 @@ public class FileUploadController {
             }
         }
 
-//        @RequestMapping(value = "/uploadQiuNiu", method = RequestMethod.POST)
-//        @ResponseBody
-//        public String uploadQiNiu(@RequestParam("file") MultipartFile file) throws Exception{
-//            //如果文件不为空，写入上传路径
-//            if(!file.isEmpty()) {
-//                //文件的完整名称,如image.jpg
-//                String filename = file.getOriginalFilename();
-//                //文件名,如image
-//                String name = filename.substring(0,filename.indexOf("."));
-//                //文件后缀,如.jpg
-//                String suffix = filename.substring(filename.lastIndexOf("."));
-//                //文件路径：
-//                String path = "D:\\pic";
-//                File filepath = new File(path,filename);
-//                //若文件存在重命名,更改文件名如：image(1).jpg 后上传
-//                String newFilename = filename;
-//                while(filepath.exists()) {
-//                    newFilename = name+"("+index+")"+suffix;
-//                    String parentPath = filepath.getParent();
-//                    filepath = new File(parentPath+File.separator+newFilename);
-//                    filename = newFilename;
-//                    index++;
-//                }
-//                //判断路径是否存在，如果不存在就创建一个
-//                if (!filepath.getParentFile().exists()) {
-//                    filepath.getParentFile().mkdirs();
-//                }
-//                //将上传文件保存到一个目标文件当中
-//                file.transferTo(new File(path + File.separator + filename));
-//                /**
-//                 * 七牛上传
-//                 */
-//                String URL = "";
-//                QiNiuUtil qiniuUtil = new QiNiuUtil();
-//                try {
-//                    path = path + "\\"+filename;
-//                    //上传到七牛云
-//                    URL = qiniuUtil.upload(path, filename);
-//                } catch (IOException e) {
-//                    // TODO Auto-generated catch block
-//                    URL = "上传到七牛云失败！";
-//                    e.printStackTrace();
-//                }
-//                // 返回图片链接地址给前端
-//                return URL;
-//            }
-//            return "EMPTY";
-//        }
-//
 
 }

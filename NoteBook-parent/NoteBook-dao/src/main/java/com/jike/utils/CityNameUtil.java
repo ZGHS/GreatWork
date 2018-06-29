@@ -14,13 +14,17 @@ public class CityNameUtil {
 
 		List<String> cityNames = new ArrayList<>();
 		List<Item> items = result.getItems();
-		for (int i = 0; i < items.size(); i++) {
-			Item item = items.get(i);
-			String ne = item.getNe();
-			if (ne.equals("LOC")||ne.equals("PER")||ne.equals("ORG")||ne.equals("TIME")) {
-				cityNames.add(item.getItem());
+		if (items != null) {
+			for (int i = 0; i < items.size(); i++) {
+				Item item = items.get(i);
+				String ne = item.getNe();
+				if (ne.equals("LOC") || ne.equals("PER") || ne.equals("ORG") || ne.equals("TIME")) {
+					cityNames.add(item.getItem());
+				}
 			}
+			return cityNames;
 		}
-		return cityNames;
+		return null;
+
 	}
 }

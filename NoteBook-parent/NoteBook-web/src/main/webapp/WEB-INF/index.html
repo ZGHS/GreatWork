@@ -23,7 +23,9 @@
 			
 			var myData;
 			
-			var JK_URL="http://192.168.1.102:8080/";
+			//var JK_URL="http://192.168.1.102:8080/";
+			var JK_URL="http://10.10.164.80:8080/";
+			//var JK_URL="http://localhost:8080/";
 			 var allRecords;
 			$(function(){
 				
@@ -138,20 +140,20 @@ $.ajax({
                 for (var i = 0; i < allRecords.length; i++) {
                 	var record=allRecords[i];
                 	if(record.rDelete==1){
+                		//$("#allGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+   record.rDate+"</button>");
                 		  switch(record.rLabel)
   						{
   						case 0:
-  						$("#noLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+(record.rContent).substring(0,11)+"</button>");
-  						  break;
+  						$("#noLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+   record.rDate+"</button>");break;
   						case 1:
-  						$("#studyLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+(record.rContent).substring(0,11)+"</button>");
+  						$("#studyLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+record.rDate+"</button>");break;
+  						case 2:
+  						$("#workLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+ record.rDate+"</button>");break;
+  						case 3:
+  						$("#lifeLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+ record.rDate+"</button>");
   						  break;
-  						  case 2:
-  						$("#workLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+(record.rContent).substring(0,11)+"</button>");
-  						  break;
-  						  case 3:
-  						$("#lifeLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+(record.rContent).substring(0,11)+"</button>");
-  						  break;
+  						 default:
+  							$("#noLabelGroup").append("<button type='button' class='list-group-item' id='"+i+"'>"+   record.rDate+"</button>");break;
   						}
   						 $("#"+i).click( function () {
   					          currentRid=allRecords[$(this).attr('id')].rId; 
@@ -212,19 +214,20 @@ $.ajax({
 							<h6 class="card-title text-center">标签</h6>
 						</div>
 						<div class="card-body">
+							
 							<div class="row ">
-								<button class="btn btn-primary btn-block " data-toggle="collapse" data-target="#content">
+								<button class="btn btn-info btn-block " data-toggle="collapse" data-target="#content0">
  未标签
 </button>
 							</div>
 							<div class="row ">
-								<div class="collapse" id="content">
+								<div class="collapse" id="content0">
 									<div class="list-group" id="noLabelGroup">
 									</div>
 								</div>
 							</div>
 							<div class="row ">
-								<button class="btn btn-primary btn-block " data-toggle="collapse" data-target="#content1">
+								<button class="btn btn-secondary btn-block " data-toggle="collapse" data-target="#content1">
  学习
 </button>
 							</div>
@@ -235,7 +238,7 @@ $.ajax({
 								</div>
 							</div>
 							<div class="row bg-light">
-								<button class="btn btn-primary btn-block" data-toggle="collapse" data-target="#content2">
+								<button class="btn btn-success btn-block" data-toggle="collapse" data-target="#content2">
  工作
 </button>
 							</div>
@@ -268,7 +271,7 @@ $.ajax({
 								<button id="profileBtn" onclick="checkProfile()" class="btn btn-primary btn-block">
  个人资料
 </button>
-								<button id="exitBtn" class="btn btn-primary btn-block" data-toggle="modal" data-target="#exitModal">
+								<button id="exitBtn" class="btn btn-danger btn-block" data-toggle="modal" data-target="#exitModal">
  退出登录
 </button>
 							</div>
